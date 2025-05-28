@@ -1,14 +1,69 @@
 
-<div class="sidebar" style="color: white !important; background-color:rgb(34, 31, 31); margin: #333333; border: #333333;">
+<style>
+    .sidebar {
+        background-color: #222020; /* Fondo oscuro */
+        color: white;
+        border-right: 2px solid #333333;
+        width: 270px; /* Ajuste de ancho */
+    }
+
+    .sidebar-logo .navbar-brand {
+        color: rgb(198, 167, 31) !important;
+        font-size: 26px;
+        font-family: "Cambria Math", sans-serif;
+        margin-top: 18px;
+    }
+
+    .nav-item a {
+        display: flex;
+        align-items: center;
+        padding: 12px;        
+        text-decoration: none;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .nav-item a p {
+        color: rgb(162, 159, 159);
+    }
+
+    .nav-item a b {
+        padding-left: 3px; 
+        padding-right: 10px;
+    }
+
+    .nav-item a:hover {
+        background-color: rgba(198, 167, 31, 0.66);
+    }
+
+    .nav-item a:hover p {
+        color: black !important;
+        text-shadow: none !important;
+    }
+
+    .nav-item.active a {
+        background-color: rgb(198, 167, 31);
+        color: #ffffff !important;
+        font-weight: bold;
+        border-radius: 5px;
+    }
+
+    .logo-header .logo {
+        color: rgb(198, 167, 31) !important;
+    }
+
+    .sidebar .nav>.nav-item.active>a p, .sidebar[data-background-color=white] .nav>.nav-item.active>a p {
+        color: rgb(198, 167, 31) !important;
+        font-weight: 600;
+    }
+</style>
+
+<div class="sidebar">
     <div class="sidebar-logo">
         <!-- Logo Header -->
 
-        <div class="logo-header" style="background-color:rgb(34, 31, 31); margin: #333333; border: #333333;">
+        <div class="logo-header">
             <a href="#" class="logo">
-                <p alt="navbar brand" class="navbar-brand" height="45" 
-                   style="padding-top: 18px; font-size: 25px; font-family: Cambria Math; color:rgb(198, 167, 31);">
-                    PeluqPro
-                </p>
+                <p class="navbar-brand">PeluqPro </p>
             </a>
             <div class="nav-toggle">
                 <button class="btn btn-toggle toggle-sidebar" >
@@ -30,30 +85,30 @@
 
             <ul class="nav nav-secondary" >
                 <li class="nav-item" id="inicio" onclick="activarItem(this, 'inicio')">
-                    <a aria-expanded="false" href="indexGOp.php" > 
-                        <b style="padding-left: 3px; padding-right: 10px;">🏠</b>
-                        <p style="color: grey;">Inicio</p>
+                    <a href="indexGOp.php" > 
+                        <b>🏠</b>
+                        <p>Inicio</p>
                     </a>
                 </li>
 
                 <li class="nav-item" id="empleados" onclick="activarItem(this, 'empleados')" >
-                    <a aria-expanded="false" href="empleados.php" >
-                        <b style="padding-left: 3px; padding-right: 10px;">👨‍💼</b>
-                        <p style="color: grey;"> Empleados </p>
+                    <a href="empleados.php" >
+                        <b>👨‍💼</b>
+                        <p> Empleados </p>
                     </a>
                 </li>
 
                 <li class="nav-item" id="clientes" onclick="activarItem(this, 'clientes')" >
-                    <a aria-expanded="false" href="clientes.php" >
-                        <b style="padding-left: 3px; padding-right: 10px;">💇</b>
-                        <p style="color: grey;"> Clientes </p>
+                    <a href="clientes.php" >
+                        <b>💇</b>
+                        <p> Clientes </p>
                     </a>
                 </li>
 
                 <li class="nav-item" id="turnos" onclick="activarItem(this, 'turnos')" >
-                    <a aria-expanded="false" href="turnos.php" >
-                        <b style="padding-left: 3px; padding-right: 10px;">📅</b>
-                        <p style="color: grey;"> Turnos </p>
+                    <a href="turnos.php" >
+                        <b>📅</b>
+                        <p> Turnos </p>
                     </a>
                 </li>
 

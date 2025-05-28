@@ -1,5 +1,5 @@
 <div class="main-panel">
-    <div class="main-header" style="background-color:rgb(49, 22, 9);">
+    <div class="main-header" style="background-color:rgba(49, 22, 9, 0.69);">
         <div class="main-header-logo">
             <!-- Logo Header -->
             <div class="logo-header">
