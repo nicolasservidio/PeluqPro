@@ -40,12 +40,60 @@ include('head.php');
         }
         ?>
 
-        <div class="p-4 mb-4 shadow-sm" 
-            style="margin-left: 2%; margin-right: 2%; margin-top: 15%; border-radius: 20px; background-color: #000000;"> 
+        <!-- Algunos efectos moderno para el form de consultas ;) -->
+        <style>
+
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .filtro-clientes {
+                transition: all 0.4s ease-in-out; 
+                border-radius: 15px; 
+                background-color:rgb(19, 4, 2); 
+                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); 
+                margin-left: 2%; 
+                margin-right: 2%; 
+                margin-top: 15%;
+                animation: fadeInUp 0.8s ease-in-out; /* Hace que el cuadro "aparezca suavemente" */
+            }
+
+            .filtro-clientes:hover {
+                transform: translateY(-5px); 
+                box-shadow: 0px 10px 20px rgba(198, 167, 31, 0.5);
+            }
+
+            .form-control {
+                transition: all 0.3s ease-in-out;
+                border: 4px solid transparent;
+            }
+
+            .form-control:focus {
+                border: 4px solid rgb(198, 167, 31); /* Resalta con dorado */
+                box-shadow: 0px 0px 10px rgba(198, 167, 31, 0.6);
+            }
+
+            .btn-filtrar {
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .btn-filtrar:hover {
+                transform: scale(1.1); /* Botón se agranda ligeramente */
+            }
+        </style>
+
+        <div class="p-4 mb-4 shadow-sm filtro-clientes"> 
             <h4 class="mb-5" style="color:rgb(175, 33, 8);"><strong>Filtrar Clientes</strong></h4>
 
             <!-- Formulario de filtro -->
-            <form action="clientes.php" method="GET">
+            <form action="clientes.php" method="GET" onsubmit="scrollToTable()">
             
                 <div class="row">
                     <div class="col-md-2">
@@ -94,10 +142,10 @@ include('head.php');
                 </div>
 
                 <div class="mt-3" style="padding-top: 50px; padding-bottom: 50px;">
-                    <button type="submit" class="btn" style="background-color: rgb(175, 33, 8); color: white; margin-right: 20px;">
-                        <i class="fas fa-search"></i> Filtrar
+                    <button type="submit" class="btn btn-filtrar" style="background-color: rgb(175, 33, 8); color: white; margin-right: 20px;">
+                        <i class="fas fa-search"></i> Consultar
                     </button>
-                    <a href="clientes.php" class="btn" style="background-color: rgb(175, 33, 8); color: white;">
+                    <a href="clientes.php" class="btn btn-filtrar" style="background-color: rgb(175, 33, 8); color: white;">
                         Limpiar Filtros
                     </a>
                 </div>
@@ -107,22 +155,22 @@ include('head.php');
         <!-- Botones -->
         <div class="d-flex justify-content-between" style="margin-left: 2%; margin-right: 2%; margin-top: 8%;">
             
-            <button class="btn" style="background-color: rgb(175, 33, 8); color: white;" 
+            <button class="btn btn-filtrar" style="background-color: rgb(175, 33, 8); color: white;" 
                     data-bs-toggle="modal" data-bs-target="#nuevoClienteModal">
                 <i class="fas fa-plus-circle"></i> Nuevo cliente
             </button>
             <div>
-                <button class="btn btn-warning" id="btnModificar" onclick="modificarCliente()" disabled>
+                <button class="btn btn-warning btn-filtrar" id="btnModificar" onclick="modificarCliente()" disabled>
                     Modificar Cliente
                 </button>
-                <button class="btn btn-warning" id="btnEliminar" onclick="eliminarCliente()" disabled>
+                <button class="btn btn-warning btn-filtrar" style="margin-left: 20px;" id="btnEliminar" onclick="eliminarCliente()" disabled>
                     <i class="fas fa-trash-alt"></i> Eliminar
                 </button>
             </div>
         </div>
         
         <!-- Sección de Listado Clientes -->
-        <div class="table-responsive p-4 mb-4 border border-secondary rounded bg-white shadow-sm" 
+        <div id="tablaClientesContenedor" class="table-responsive p-4 mb-4 border border-secondary rounded bg-white shadow-sm" 
              style="max-width: 97%; max-height: 700px; margin-left: 2%; margin-right: 2%; margin-top: 3%;">
             <h5 class="mb-4" style="color:rgb(175, 33, 8);"><strong>Listado Clientes</strong></h5><br>
             <table class="table table-hover" id="tablaClientes" >
@@ -275,9 +323,24 @@ include('head.php');
     </div>
 
     <script>
-        let clienteSeleccionado = null;
+
+        // Desplazamiento vertical al listado luego de consulta
+        function scrollToTable() {
+            localStorage.setItem('scrollToTable', 'true'); // Guardar indicador antes de enviar
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('scrollToTable') === 'true') {
+                setTimeout(() => {
+                    document.getElementById('tablaClientesContenedor').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    localStorage.removeItem('scrollToTable'); // Limpiar indicador después del scroll
+                }, 500); 
+            }
+        });
 
         // Selección de cliente al hacer clic en una fila
+        let clienteSeleccionado = null;
+
         document.querySelectorAll('#tablaClientes .cliente').forEach(row => {
             row.addEventListener('click', () => {
                 // Desmarcar cualquier fila previamente seleccionada
