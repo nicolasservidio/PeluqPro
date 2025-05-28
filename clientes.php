@@ -88,7 +88,7 @@ include('head.php');
 
                 <div class="mt-3" style="padding-top: 50px; padding-bottom: 50px;">
                     <button type="submit" class="btn" style="background-color: rgb(175, 33, 8); color: white; margin-right: 20px;">
-                        Filtrar
+                        <i class="fas fa-search"></i> Filtrar
                     </button>
                     <a href="clientes.php" class="btn" style="background-color: rgb(175, 33, 8); color: white;">
                         Limpiar Filtros
@@ -103,8 +103,10 @@ include('head.php');
                 <i class="fas fa-plus-circle"></i> Nuevo cliente
             </button>
             <div>
-                <button class="btn btn-primary" id="btnModificar" onclick="modificarCliente()" disabled>Modificar Cliente</button>
-                <button class="btn btn-danger" id="btnEliminar" onclick="eliminarCliente()" disabled>
+                <button class="btn btn-warning" id="btnModificar" onclick="modificarCliente()" disabled>
+                    Modificar Cliente
+                </button>
+                <button class="btn btn-warning" id="btnEliminar" onclick="eliminarCliente()" disabled>
                     <i class="fas fa-trash-alt"></i> Eliminar
                 </button>
             </div>
@@ -118,13 +120,14 @@ include('head.php');
                 <thead>
                     <tr>
                         <th style='color: #bd399e;'><h3>N</h3></th>
-                        <th>ID Cliente</th>
+                        <th>Identificador del Cliente</th>
                         <th>Documento</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>Email</th>
                         <th>Teléfono</th>
                         <th>Dirección</th>
+                        <th>Localidad</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -134,13 +137,14 @@ include('head.php');
                     for ($i = 0; $i < $CantidadClientes; $i++) {
                         echo "<tr class='cliente' data-id='" . $ListadoClientes[$i]['ID'] . "'>
                             <td><span style='color: #bd399e;'><h3>" . $contador . "</h3></span></td>
-                            <td>" . $ListadoClientes[$i]['ID'] . "</td>
-                            <td>" . $ListadoClientes[$i]['DOCUMENTO'] . "</td>
-                            <td>" . $ListadoClientes[$i]['NOMBRE'] . "</td>
-                            <td>" . $ListadoClientes[$i]['APELLIDO'] . "</td>
-                            <td>" . $ListadoClientes[$i]['EMAIL'] . "</td>
-                            <td>" . $ListadoClientes[$i]['TELEFONO'] . "</td>
-                            <td>" . $ListadoClientes[$i]['DIRECCION'] . "</td>
+                            <td>" . $ListadoClientes[$i]['id'] . "</td>
+                            <td>" . $ListadoClientes[$i]['documento'] . "</td>
+                            <td>" . $ListadoClientes[$i]['nombre'] . "</td>
+                            <td>" . $ListadoClientes[$i]['apellido'] . "</td>
+                            <td>" . $ListadoClientes[$i]['email'] . "</td>
+                            <td>" . $ListadoClientes[$i]['telefono'] . "</td>
+                            <td>" . $ListadoClientes[$i]['direccion'] . "</td>
+                            <td>" . $ListadoClientes[$i]['localidad'] . "</td>
                         </tr>";
                         $contador++;
                     }
