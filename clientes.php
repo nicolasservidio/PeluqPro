@@ -194,7 +194,7 @@ include('head.php');
                     for ($i = 0; $i < $CantidadClientes; $i++) {
                         echo "<tr class='cliente' data-id='" . $ListadoClientes[$i]['id'] . "'>
                             <td><span style='color: #bd399e;'><h3>" . $contador . "</h3></span></td>
-                            <td>" . $ListadoClientes[$i]['id'] . "</td>
+                            <td title='Número identificador del cliente en la empresa'>" . $ListadoClientes[$i]['id'] . "</td>
                             <td>" . $ListadoClientes[$i]['documento'] . "</td>
                             <td>" . $ListadoClientes[$i]['nombre'] . "</td>
                             <td>" . $ListadoClientes[$i]['apellido'] . "</td>
@@ -222,6 +222,33 @@ include('head.php');
         <p class="btn no-btn-effect" style="background-color: white; color: black; margin-left: 25px;">
             Total de registros encontrados: <?php echo $CantidadClientes; ?>
         </p>
+
+        <!-- IMPRESIÓN DEL LISTADO -->
+
+        <style>
+            .btn-print {
+                background-color: #FF7300; /* Naranja fuerte */
+                color: white;
+                font-size: 18px;
+                font-weight: bold;
+                margin: 50px 0 30px;
+                padding: 12px 24px;
+                border-radius: 8px;
+                transition: all 0.3s ease-in-out;
+                border: none;
+                cursor: pointer;
+            }
+
+            .btn-print:hover {
+                background-color: #D96000; /* Oscurece al pasar el mouse */
+                transform: scale(1.1); /* Efecto de agrandamiento */
+            }
+        </style>
+
+        <div class="text-center mt-4">  
+            <a href="impresion-ListadoClientes.php"> <button class="btn btn-print">🖨️ Imprimir Listado PDF</button></a>
+        </div>
+
 
         <!-- Estilo para el modal de registro de Nuevo Cliente -->
         <style>

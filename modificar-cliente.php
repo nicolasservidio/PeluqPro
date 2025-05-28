@@ -158,6 +158,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </button>
                 </form>
             </div>
+
+            <div style="margin-top: 100px;">
+                <?php require_once "foot.php"; ?>
+            </div>
+
         </div>
     </div>
 </body>
