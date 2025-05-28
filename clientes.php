@@ -124,7 +124,7 @@ include('head.php');
         <!-- Sección de Listado Clientes -->
         <div class="table-responsive p-4 mb-4 border border-secondary rounded bg-white shadow-sm" 
              style="max-width: 97%; max-height: 700px; margin-left: 2%; margin-right: 2%; margin-top: 3%;">
-            <h5 class="mb-4" style="color:rgb(175, 33, 8);"><strong>Listado Clientes</strong></h5>
+            <h5 class="mb-4" style="color:rgb(175, 33, 8);"><strong>Listado Clientes</strong></h5><br>
             <table class="table table-hover" id="tablaClientes" >
                 <thead>
                     <tr>

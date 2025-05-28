@@ -16,6 +16,11 @@ function Listar_Clientes($MiConexion, $filtros = []) {
     $params = [];
     $types = '';
 
+    if (!empty($filtros['identificador'])) {
+        $query .= " AND idCliente = ?";
+        $params[] = $filtros['identificador'];
+        $types .= 'i';
+    }
     if (!empty($filtros['documento'])) {
         $query .= " AND dniCliente LIKE ?";
         $params[] = "%" . $filtros['documento'] . "%";
