@@ -16,6 +16,7 @@ $filtros = [
     'telefono' => isset($_GET['telefono']) ? trim($_GET['telefono']) : '',
     'direccion' => isset($_GET['direccion']) ? trim($_GET['direccion']) : '',
     'localidad' => isset($_GET['localidad']) ? trim($_GET['localidad']) : '',
+    'identificador' => isset($_GET['identificador']) ? trim($_GET['identificador']) : '',
 ];
 
 // Generar consulta filtrada
@@ -45,8 +46,14 @@ include('head.php');
 
             <!-- Formulario de filtro -->
             <form action="clientes.php" method="GET">
+            
                 <div class="row">
                     <div class="col-md-2">
+                        <label for="identificador" class="form-label" style="color: white !important;">ID</label>
+                        <input type="number" min="1" step="1" class="form-control" id="identificador" name="identificador" 
+                            value="<?= htmlspecialchars($filtros['identificador']) ?>">
+                    </div>
+                    <div class="col-md-3">
                         <label for="documento" class="form-label" style="color: white !important;">Documento</label>
                         <input type="text" class="form-control" id="documento" name="documento" 
                             value="<?= htmlspecialchars($filtros['documento']) ?>">
@@ -61,14 +68,14 @@ include('head.php');
                         <input type="text" class="form-control" id="apellido" name="apellido" 
                             value="<?= htmlspecialchars($filtros['apellido']) ?>">
                     </div>
+                </div> 
+
+                <div class="row" style="padding-top: 40px;">
                     <div class="col-md-3">
                         <label for="email" class="form-label" style="color: white !important;">Email</label>
                         <input type="text" class="form-control" id="email" name="email" 
                             value="<?= htmlspecialchars($filtros['email']) ?>">
                     </div>
-                </div> 
-
-                <div class="row" style="padding-top: 20px;">
                     <div class="col-md-2">
                         <label for="telefono" class="form-label" style="color: white !important;">Teléfono</label>
                         <input type="text" class="form-control" id="telefono" name="telefono" 

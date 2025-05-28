@@ -11,7 +11,7 @@ function Listar_Clientes($MiConexion, $filtros = []) {
                     direccionCliente AS direccion,
                     localidadCliente AS localidad,
                     bajaCliente AS baja 
-                FROM clientes WHERE 1=1";
+                FROM clientes WHERE 1=1 AND bajaCliente = 'N' ";
 
     $params = [];
     $types = '';
