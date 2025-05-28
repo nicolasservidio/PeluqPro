@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2025 at 01:05 AM
+-- Generation Time: May 28, 2025 at 11:39 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -60,6 +60,37 @@ INSERT INTO `cargo` (`id`, `descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `clientes`
+--
+
+CREATE TABLE `clientes` (
+  `idCliente` int(11) NOT NULL,
+  `dniCliente` int(20) DEFAULT NULL,
+  `nombreCliente` varchar(50) DEFAULT NULL,
+  `apellidoCliente` varchar(50) DEFAULT NULL,
+  `mailCliente` varchar(50) DEFAULT NULL,
+  `telefonoCliente` int(15) DEFAULT NULL,
+  `direccionCliente` varchar(50) DEFAULT NULL,
+  `localidadCliente` varchar(50) DEFAULT NULL,
+  `bajaCliente` char(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `clientes`
+--
+
+INSERT INTO `clientes` (`idCliente`, `dniCliente`, `nombreCliente`, `apellidoCliente`, `mailCliente`, `telefonoCliente`, `direccionCliente`, `localidadCliente`, `bajaCliente`) VALUES
+(1, 345656432, 'Horacio', 'García', 'horaciog@yahoo.com', 12345678, '2093 Rivadavia', 'Córdoba', 'N'),
+(2, 7654321, 'Alberto', 'Suárez', 'albertos@yahoo.com', 2147483647, '1029 Cuyo', 'Córdoba', 'N'),
+(3, 2147483647, 'Nicolás', 'Servidio', 'servidion@yahoo.com', 999999777, '1901 Sarmiento', 'Córdoba', 'N'),
+(4, 3028388, 'Carolina', 'Pérez', 'perezc@yahoo.com', 93928999, '992 Salta', 'Villa Carlos Paz', 'N'),
+(5, 4432323, 'Lucia', 'Gonzalez', 'luciag@yahoo.com', 993939282, '993 Zapiola', 'Ciudad Autónoma de Buenos Aires', 'N'),
+(16, 393093029, 'Agustín', 'Di Stefano', 'etchebarnea@yahoo.com', 2147483647, '1124 Salvador', 'La Plata', 'N'),
+(17, 326643336, 'Maria', 'Kepano', 'mariakep@yahoo.com', 2147483647, '2939 Av. Callao', 'Ciudad Autónoma de Buenos Aires', 'N');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `usuarios`
 --
 
@@ -92,6 +123,12 @@ ALTER TABLE `cargo`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `clientes`
+--
+ALTER TABLE `clientes`
+  ADD PRIMARY KEY (`idCliente`);
+
+--
 -- Indexes for table `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -107,6 +144,12 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `cargo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `clientes`
+--
+ALTER TABLE `clientes`
+  MODIFY `idCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `usuarios`
