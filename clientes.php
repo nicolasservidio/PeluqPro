@@ -99,7 +99,9 @@ include('head.php');
 
         <!-- Botones -->
         <div class="d-flex justify-content-between" style="margin-left: 2%; margin-right: 2%; margin-top: 8%;">
-            <button class="btn" style="background-color: rgb(175, 33, 8); color: white;" data-bs-toggle="modal" data-bs-target="#nuevoClienteModal">
+            
+            <button class="btn" style="background-color: rgb(175, 33, 8); color: white;" 
+                    data-bs-toggle="modal" data-bs-target="#nuevoClienteModal">
                 <i class="fas fa-plus-circle"></i> Nuevo cliente
             </button>
             <div>
@@ -120,7 +122,7 @@ include('head.php');
                 <thead>
                     <tr>
                         <th style='color: #bd399e;'><h3>N</h3></th>
-                        <th>Identificador del Cliente</th>
+                        <th>ID cliente</th>
                         <th>Documento</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
@@ -135,7 +137,7 @@ include('head.php');
                     $contador = "1";
 
                     for ($i = 0; $i < $CantidadClientes; $i++) {
-                        echo "<tr class='cliente' data-id='" . $ListadoClientes[$i]['ID'] . "'>
+                        echo "<tr class='cliente' data-id='" . $ListadoClientes[$i]['id'] . "'>
                             <td><span style='color: #bd399e;'><h3>" . $contador . "</h3></span></td>
                             <td>" . $ListadoClientes[$i]['id'] . "</td>
                             <td>" . $ListadoClientes[$i]['documento'] . "</td>
@@ -153,46 +155,106 @@ include('head.php');
             </table>
         </div>
 
+        <!-- Cantidad total de registros encontrados -->
+        <style>
+            .no-btn-effect {
+                pointer-events: none; /* Evita que se comporte como un botón */
+                box-shadow: none !important; /* Elimina cualquier sombra al hacer hover */
+                cursor: default !important; /* Hace que el cursor no cambie */
+                border: none; /* Opcional: eliminar bordes si es necesario */
+            }
+        </style>
+        <p class="btn no-btn-effect" style="background-color: white; color: black; margin-left: 25px;">
+            Total de registros encontrados: <?php echo $CantidadClientes; ?>
+        </p>
+
+        <!-- Estilo para el modal de registro de Nuevo Cliente -->
+        <style>
+            .modal-custom {
+                background-color: #262626; /* Color oscuro fondo */ 
+                color: white; /* Texto blanco para mayor contraste */
+                border-radius: 10px;
+            }
+            .modal-header {
+                background-color: rgb(175, 33, 8); /* Mantiene el color del resto de la página */
+            }
+            .modal-footer {
+                background-color: #2C211B;
+            }
+            .modal-backdrop {
+                backdrop-filter: blur(10px); /* Aplica el efecto borroso */
+                background-color: rgba(0, 0, 0, 0.3) !important; /* Oscurece un poco el fondo */
+            }
+        </style>
+
         <!-- Modal para Nuevo Cliente -->
-        <div class="modal fade" id="nuevoClienteModal" tabindex="-1" aria-labelledby="nuevoClienteModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
+        <div class="modal fade" id="nuevoClienteModal" 
+             tabindex="-1" aria-labelledby="nuevoClienteModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content modal-custom">
                     <div class="modal-header">
                         <h5 class="modal-title" id="nuevoClienteModalLabel">Agregar Nuevo Cliente</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
                     <!-- Form -->
-                    <form action="NuevoCliente.php" method="POST">
+                    <form action="nuevo-cliente.php" method="POST">
                         <div class="modal-body">
                             <div class="mb-3">
-                                <label for="documento" class="form-label">Documento</label>
-                                <input type="text" class="form-control" id="documento" name="documento" required>
+                                <label for="documento" class="form-label" style="color: white !important;">
+                                    Documento
+                                </label>
+                                <input type="number" step="1"
+                                        title="Solo se admiten documentos con 7 a 12 dígitos"
+                                        class="form-control" id="documento" name="Documento" required>
                             </div>
                             <div class="mb-3">
-                                <label for="nombre" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                                <label for="nombre" class="form-label" style="color: white !important;">
+                                    Nombre
+                                </label>
+                                <input type="text" class="form-control" id="nombre" name="Nombre" required>
                             </div>
                             <div class="mb-3">
-                                <label for="apellido" class="form-label">Apellido</label>
-                                <input type="text" class="form-control" id="apellido" name="apellido" required>
+                                <label for="apellido" class="form-label" style="color: white !important;">
+                                    Apellido
+                                </label>
+                                <input type="text" class="form-control" id="apellido" name="Apellido" required>
                             </div>
                             <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
+                                <label for="email" class="form-label" style="color: white !important;">
+                                    Email
+                                </label>
+                                <input type="email" class="form-control" id="email" name="Email" required>
                             </div>
                             <div class="mb-3">
-                                <label for="telefono" class="form-label">Teléfono</label>
-                                <input type="text" class="form-control" id="telefono" name="telefono" required>
+                                <label for="telefono" class="form-label" style="color: white !important;">
+                                    Teléfono
+                                </label>
+                                <input type="number" step="1" 
+                                        title="Solo se admiten números telefónicos con 8 a 12 dígitos" 
+                                        class="form-control" id="telefono" name="Telefono" required>
                             </div>
                             <div class="mb-3">
-                                <label for="direccion" class="form-label">Dirección</label>
-                                <input type="text" class="form-control" id="direccion" name="direccion" required>
+                                <label for="direccion" class="form-label" style="color: white !important;">
+                                    Dirección
+                                </label>
+                                <input type="text" class="form-control" id="direccion" name="Direccion" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="localidad" class="form-label" style="color: white !important;">
+                                    Localidad
+                                </label>
+                                <input type="text" class="form-control" id="localidad" name="Localidad" required>
                             </div>
                         </div>
+
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="button" class="btn btn-warning" data-bs-dismiss="modal">
+                                Cerrar
+                            </button>
+                            <button type="submit" class="btn" style="background-color: rgb(175, 33, 8); color: white;">
+                                Guardar
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -222,18 +284,18 @@ include('head.php');
             });
         });
 
-        // Función para redirigir a ModificarCliente.php con el ID del cliente seleccionado
+        // Función para redirigir a modificar-cliente.php con el ID del cliente seleccionado
         function modificarCliente() {
             if (clienteSeleccionado) {
-                window.location.href = 'ModificarCliente.php?id=' + clienteSeleccionado;
+                window.location.href = 'modificar-cliente.php?id=' + clienteSeleccionado;
             }
         }
 
-        // Función para redirigir a EliminarCliente.php con el ID del cliente seleccionado
+        // Función para redirigir a eliminar-cliente.php con el ID del cliente seleccionado
         function eliminarCliente() {
             if (clienteSeleccionado) {
                 if (confirm('¿Estás seguro de que quieres eliminar este cliente?')) {
-                    window.location.href = 'EliminarCliente.php?id=' + clienteSeleccionado;
+                    window.location.href = 'eliminar-cliente.php?id=' + clienteSeleccionado;
                 }
             }
         }

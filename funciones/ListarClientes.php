@@ -9,7 +9,8 @@ function Listar_Clientes($MiConexion, $filtros = []) {
                     mailCliente AS email, 
                     telefonoCliente AS telefono, 
                     direccionCliente AS direccion,
-                    localidadCliente as localidad 
+                    localidadCliente AS localidad,
+                    bajaCliente AS baja 
                 FROM clientes WHERE 1=1";
 
     $params = [];
@@ -56,7 +57,7 @@ function Listar_Clientes($MiConexion, $filtros = []) {
     if ($types) {
         $stmt->bind_param($types, ...$params);
     }
-    
+
     $stmt->execute();
     $result = $stmt->get_result();
     return $result->fetch_all(MYSQLI_ASSOC);

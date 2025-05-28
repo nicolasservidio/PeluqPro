@@ -30,7 +30,7 @@
 
                 <!-- Aparece titulo de pagina segun la pagina en la que este -->
                 <?php if (isset($tituloPagina)): ?>
-                <div class="navbar-center-title w-100" style="color:rgb(128, 34, 5);">
+                <div class="navbar-center-title w-100" style="color:rgb(171, 142, 14);">
                     <h3 style="margin: 0;"><?php echo $tituloPagina; ?></h3>
                 </div>
                 <?php endif; ?>

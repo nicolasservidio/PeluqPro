@@ -5,7 +5,8 @@
 
         <div class="logo-header" style="background-color:rgb(34, 31, 31); margin: #333333; border: #333333;">
             <a href="#" class="logo">
-                <p alt="navbar brand" class="navbar-brand" height="45" style="padding-top: 18px; font-size: 25px; color:rgb(128, 34, 5);">
+                <p alt="navbar brand" class="navbar-brand" height="45" 
+                   style="padding-top: 18px; font-size: 25px; font-family: Cambria Math; color:rgb(198, 167, 31);">
                     PeluqPro
                 </p>
             </a>
