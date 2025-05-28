@@ -1,5 +1,5 @@
-<div class="main-panel ">
-    <div class="main-header">
+<div class="main-panel">
+    <div class="main-header" style="background-color:rgb(49, 22, 9);">
         <div class="main-header-logo">
             <!-- Logo Header -->
             <div class="logo-header">
@@ -45,8 +45,8 @@
                                 <img src="assets/img/admin-profile.jpg" alt="..." class="avatar-img rounded-circle" />
                             </div>
                             <span class="profile-username">
-                                <span class="op-7">Hola,</span>
-                                <span class="fw-bold"> <?php echo $_SESSION["Nombre"]; ?> </span>
+                                <span class="op-7" style="color: white;">Hola,</span>
+                                <span class="fw-bold" style="color: white;"> <?php echo $_SESSION["Nombre"]; ?> </span>
                             </span>
                         </a>
                         <ul class="dropdown-menu dropdown-user animated fadeIn">

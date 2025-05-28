@@ -1,9 +1,9 @@
 
-<div class="sidebar" style="background-color:white;">
+<div class="sidebar" style="color: white !important; background-color:rgb(34, 31, 31); margin: #333333; border: #333333;">
     <div class="sidebar-logo">
         <!-- Logo Header -->
 
-        <div class="logo-header" style="background-color: white;">
+        <div class="logo-header" style="background-color:rgb(34, 31, 31); margin: #333333; border: #333333;">
             <a href="#" class="logo">
                 <p alt="navbar brand" class="navbar-brand" height="45" style="padding-top: 18px; font-size: 25px; color:rgb(128, 34, 5);">
                     PeluqPro
@@ -31,28 +31,28 @@
                 <li class="nav-item" id="inicio" onclick="activarItem(this, 'inicio')">
                     <a aria-expanded="false" href="indexGOp.php" > 
                         <b style="padding-left: 3px; padding-right: 10px;">🏠</b>
-                        <p>Inicio</p>
+                        <p style="color: grey;">Inicio</p>
                     </a>
                 </li>
 
                 <li class="nav-item" id="empleados" onclick="activarItem(this, 'empleados')" >
                     <a aria-expanded="false" href="empleados.php" >
                         <b style="padding-left: 3px; padding-right: 10px;">👨‍💼</b>
-                        <p> Empleados </p>
+                        <p style="color: grey;"> Empleados </p>
                     </a>
                 </li>
 
                 <li class="nav-item" id="clientes" onclick="activarItem(this, 'clientes')" >
                     <a aria-expanded="false" href="clientes.php" >
                         <b style="padding-left: 3px; padding-right: 10px;">💇</b>
-                        <p> Clientes </p>
+                        <p style="color: grey;"> Clientes </p>
                     </a>
                 </li>
 
                 <li class="nav-item" id="turnos" onclick="activarItem(this, 'turnos')" >
                     <a aria-expanded="false" href="turnos.php" >
                         <b style="padding-left: 3px; padding-right: 10px;">📅</b>
-                        <p> Turnos </p>
+                        <p style="color: grey;"> Turnos </p>
                     </a>
                 </li>
 
