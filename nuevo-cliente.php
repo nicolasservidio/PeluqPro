@@ -27,22 +27,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($documento) || !is_numeric($documento) || $documento < 1000000  || $documento > 999999999999) {
         $errores[] = "Solo se admiten documentos con 7 a 12 digitos.";
     }
-    if (empty($nombre)) {
+    if (empty($nombre) || strlen($nombre) >= 50) {
         $errores[] = "El nombre es obligatorio.";
     }
-    if (empty($apellido)) {
+    if (empty($apellido) || strlen($apellido) >= 50) {
         $errores[] = "El apellido es obligatorio.";
     }
     if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errores[] = "El formato del email no es válido.";
     }
+    if (strlen($email) >= 50) {
+        $errores[] = "El email no puede presentar más de 50 caracteres.";
+    }
     if (empty($telefono) || !preg_match('/^[0-9]{8,12}$/', $telefono)) {
         $errores[] = "El teléfono debe contener entre 8 y 12 dígitos.";
     }
-    if (empty($direccion)) {
+    if (empty($direccion) || strlen($direccion) >= 50) {
         $errores[] = "La dirección es obligatoria.";
     }
-    if (empty($localidad)) {
+    if (empty($localidad) || strlen($localidad) >= 50) {
         $errores[] = "La localidad es obligatoria.";
     }
 
@@ -71,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Obtener el ID del nuevo cliente
         $idCliente = $stmt->insert_id;
         
-        $mensaje = "Cliente agregado exitosamente. Identificador (ID) asignado: {$idCliente}";
+        $mensaje = "Cliente agregado exitosamente. Identificador (ID) asignado: {$idCliente}. ¡Vayamos a verlo!";
     } 
     else {
 
@@ -84,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Redirigir con un mensaje
     echo "<script> 
         alert('$mensaje');
-        window.location.href = 'clientes.php';
+        window.location.href = 'clientes.php?identificador={$idCliente}&documento=&nombre=&apellido=&email=&telefono=&direccion=&localidad=';
         </script>";
     exit();
 }

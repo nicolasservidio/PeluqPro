@@ -9,14 +9,14 @@ $MiConexion = ConexionBD();
 
 // Obtener filtros del formulario
 $filtros = [
-    'documento' => isset($_GET['documento']) ? trim($_GET['documento']) : '',
-    'nombre' => isset($_GET['nombre']) ? trim($_GET['nombre']) : '',
-    'apellido' => isset($_GET['apellido']) ? trim($_GET['apellido']) : '',
-    'email' => isset($_GET['email']) ? trim($_GET['email']) : '',
-    'telefono' => isset($_GET['telefono']) ? trim($_GET['telefono']) : '',
-    'direccion' => isset($_GET['direccion']) ? trim($_GET['direccion']) : '',
-    'localidad' => isset($_GET['localidad']) ? trim($_GET['localidad']) : '',
-    'identificador' => isset($_GET['identificador']) ? trim($_GET['identificador']) : '',
+    'documento' => isset($_GET['documento']) ? strip_tags(trim($_GET['documento'])) : '',
+    'nombre' => isset($_GET['nombre']) ? strip_tags(trim($_GET['nombre'])) : '',
+    'apellido' => isset($_GET['apellido']) ? strip_tags(trim($_GET['apellido'])) : '',
+    'email' => isset($_GET['email']) ? strip_tags(trim($_GET['email'])) : '',
+    'telefono' => isset($_GET['telefono']) ? strip_tags(trim($_GET['telefono'])) : '',
+    'direccion' => isset($_GET['direccion']) ? strip_tags(trim($_GET['direccion'])) : '',
+    'localidad' => isset($_GET['localidad']) ? strip_tags(trim($_GET['localidad'])) : '',
+    'identificador' => isset($_GET['identificador']) ? strip_tags(trim($_GET['identificador'])) : '',
 ];
 
 // Generar consulta filtrada
@@ -120,7 +120,7 @@ include('head.php');
                 </button>
             </div>
         </div>
-
+        
         <!-- Sección de Listado Clientes -->
         <div class="table-responsive p-4 mb-4 border border-secondary rounded bg-white shadow-sm" 
              style="max-width: 97%; max-height: 700px; margin-left: 2%; margin-right: 2%; margin-top: 3%;">
@@ -162,13 +162,13 @@ include('head.php');
             </table>
         </div>
 
-        <!-- Cantidad total de registros encontrados -->
+        <!-- Recuadro con cantidad total de registros encontrados -->
         <style>
             .no-btn-effect {
                 pointer-events: none; /* Evita que se comporte como un botón */
-                box-shadow: none !important; /* Elimina cualquier sombra al hacer hover */
+                box-shadow: none !important; 
                 cursor: default !important; /* Hace que el cursor no cambie */
-                border: none; /* Opcional: eliminar bordes si es necesario */
+                border: none; 
             }
         </style>
         <p class="btn no-btn-effect" style="background-color: white; color: black; margin-left: 25px;">
