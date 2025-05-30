@@ -491,9 +491,11 @@ include('head.php');
             }
         </style>
 
+        <!-- 
         <div class="text-center mt-4">  
             <a href="impresion-ListadoClientes.php"> <button class="btn btn-print">🖨️ Imprimir Listado PDF</button></a>
         </div>
+        -->
 
 
         <!-- Estilo para el modal de registro de Nuevo Cliente -->
@@ -764,11 +766,13 @@ include('head.php');
         });
 
         // Función para redirigir a modificar-empleado.php con el ID del cliente seleccionado
+        /*
         function modificarEmpleado() {
             if (empleadoSeleccionado) {
                 window.location.href = 'modificar-empleado.php?id=' + empleadoSeleccionado;
             }
         }
+        */
 
         // Función para redirigir a eliminar-empleado.php con el ID del cliente seleccionado
         function eliminarEmpleado() {
