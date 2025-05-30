@@ -1,511 +1,766 @@
-<?php
-
+<?php 
 session_start();
 
 require_once 'funciones/corroborar_usuario.php'; 
-Corroborar_Usuario(); // No se puede ingresar a la página php a menos que se haya iniciado sesión
+Corroborar_Usuario(); 
 
-require_once "conn/conexion.php";
-$conexion = ConexionBD();
+include('conn/conexion.php');
+$MiConexion = ConexionBD();
 
-// Incluyo el script con la funcion que genera mi listado
-require_once 'funciones/vehiculos listado.php';
-$ListadoVehiculos = Listar_Vehiculos($conexion);
-$CantidadVehiculos = count($ListadoVehiculos);
+// Obtener filtros del formulario
+$filtros = [
+    'identificador' => isset($_GET['identificador']) ? strip_tags(trim($_GET['identificador'])) : '',
+    'nombre' => isset($_GET['nombre']) ? strip_tags(trim($_GET['nombre'])) : '',
+    'apellido' => isset($_GET['apellido']) ? strip_tags(trim($_GET['apellido'])) : '',
+    'cuil' => isset($_GET['cuil']) ? strip_tags(trim($_GET['cuil'])) : '',
+    'nacimientodesde' => isset($_GET['nacimientodesde']) ? strip_tags(trim($_GET['nacimientodesde'])) : '',
+    'nacimientohasta' => isset($_GET['nacimientohasta']) ? strip_tags(trim($_GET['nacimientohasta'])) : '',
+    'estadocivil' => isset($_GET['estadocivil']) ? strip_tags(trim($_GET['estadocivil'])) : '',
 
+    'ingresodesde' => isset($_GET['ingresodesde']) ? strip_tags(trim($_GET['ingresodesde'])) : '',
+    'ingresohasta' => isset($_GET['ingresohasta']) ? strip_tags(trim($_GET['ingresohasta'])) : '',
+    'tipocontrato' => isset($_GET['tipocontrato']) ? strip_tags(trim($_GET['tipocontrato'])) : '',
+    'puesto' => isset($_GET['puesto']) ? strip_tags(trim($_GET['puesto'])) : '',
+    'estadocontrato' => isset($_GET['estadocontrato']) ? strip_tags(trim($_GET['estadocontrato'])) : '',
+    'obrasocial' => isset($_GET['obrasocial']) ? strip_tags(trim($_GET['obrasocial'])) : '',
+    'banco' => isset($_GET['banco']) ? strip_tags(trim($_GET['banco'])) : '',
+    'cbu' => isset($_GET['cbu']) ? strip_tags(trim($_GET['cbu'])) : '',
 
-// Filtrado de vehículos
+    'email' => isset($_GET['email']) ? strip_tags(trim($_GET['email'])) : '',
+    'telefono' => isset($_GET['telefono']) ? strip_tags(trim($_GET['telefono'])) : '',
+    'direccion' => isset($_GET['direccion']) ? strip_tags(trim($_GET['direccion'])) : '',
+    'localidad' => isset($_GET['localidad']) ? strip_tags(trim($_GET['localidad'])) : '',
+];
 
-$matricula = isset($_POST['Matricula']) ? $_POST['Matricula'] : '';
-$modelo = isset($_POST['Modelo']) ? $_POST['Modelo'] : '';
-$grupo = isset($_POST['Grupo']) ? $_POST['Grupo'] : '';
-$color = isset($_POST['Color']) ? $_POST['Color'] : '';
-$combustible = isset($_POST['Combustible']) ? $_POST['Combustible'] : '';
-$disponibilidad = isset($_POST['Disponibilidad']) ? $_POST['Disponibilidad'] : '';
-$ciudadsucursal = isset($_POST['CiudadSucursal']) ? $_POST['CiudadSucursal'] : '';
-$direccionsucursal = isset($_POST['DireccionSucursal']) ? $_POST['DireccionSucursal'] : '';
-$telsucursal = isset($_POST['TelSucursal']) ? $_POST['TelSucursal'] : '';
-$puertas = isset($_POST['Puertas']) ? $_POST['Puertas'] : '';
-$asientos = isset($_POST['Asientos']) ? $_POST['Asientos'] : '';
-$automatico = isset($_POST['Automatico']) ? $_POST['Automatico'] : '';
-$aireacondicionado = isset($_POST['AireAcondicionado']) ? $_POST['AireAcondicionado'] : '';
-$direccionhidraulica = isset($_POST['DireccionHidraulica']) ? $_POST['DireccionHidraulica'] : '';
-$fabricaciondesde = isset($_POST['FabricacionDesde']) ? $_POST['FabricacionDesde'] : '';
-$fabricacionhasta = isset($_POST['FabricacionHasta']) ? $_POST['FabricacionHasta'] : '';
-$adquisiciondesde = isset($_POST['AdquisicionDesde']) ? $_POST['AdquisicionDesde'] : '';
-$adquisicionhasta = isset($_POST['AdquisicionHasta']) ? $_POST['AdquisicionHasta'] : '';
-$preciodesde = isset($_POST['PrecioDesde']) ? $_POST['PrecioDesde'] : '';
-$preciohasta = isset($_POST['PrecioHasta']) ? $_POST['PrecioHasta'] : '';
-
-// Consulta por medio de formulario de Filtro
-if (!empty($_POST['BotonFiltro'])) {
-
-    require_once 'funciones/vehiculo consulta.php';
-    Procesar_Consulta();
-
-    $ListadoVehiculos = array();
-    $CantidadVehiculos = '';
-    $ListadoVehiculos = Consulta_Vehiculo($_POST['Matricula'], $_POST['Modelo'], $_POST['Grupo'], $_POST['Color'], $_POST['Combustible'], $_POST['Disponibilidad'], $_POST['CiudadSucursal'], $_POST['DireccionSucursal'], $_POST['TelSucursal'], $_POST['Puertas'], $_POST['Asientos'], $_POST['Automatico'], $_POST['AireAcondicionado'], $_POST['DireccionHidraulica'], $_POST['FabricacionDesde'], $_POST['FabricacionHasta'], $_POST['AdquisicionDesde'], $_POST['AdquisicionHasta'], $_POST['PrecioDesde'], $_POST['PrecioHasta'], $conexion);
-    $CantidadVehiculos = count($ListadoVehiculos);
-}
-else {
-
-    // Listo la totalidad de los registros en la tabla "vehiculos". 
-    $ListadoVehiculos = Listar_Vehiculos($conexion);
-    $CantidadVehiculos = count($ListadoVehiculos);
-}
-
-if (!empty($_POST['BotonDesfiltrar'])) {
-
-        // Listo la totalidad de los registros en la tabla "vehiculos" 
-        $ListadoVehiculos = Listar_Vehiculos($conexion);
-        $CantidadVehiculos = count($ListadoVehiculos);
-        $_POST['Matricula'] = "";
-        $_POST['Modelo'] = "";
-        $_POST['Grupo'] = "";
-        $_POST['Color'] = "";
-        $_POST['Combustible'] = ""; 
-        $_POST['Disponibilidad'] = "";
-        $_POST['CiudadSucursal'] = "";
-        $_POST['DireccionSucursal'] = "";
-        $_POST['TelSucursal'] = "";
-        $_POST['Puertas'] = "";
-        $_POST['Asientos'] = "";
-        $_POST['Automatico'] = "";
-        $_POST['AireAcondicionado'] = "";
-        $_POST['DireccionHidraulica'] = "";
-        $_POST['FabricacionDesde'] = "";
-        $_POST['FabricacionHasta'] = "";
-        $_POST['AdquisicionDesde'] = "";
-        $_POST['AdquisicionHasta'] = "";
-        $_POST['PrecioDesde'] = "";
-        $_POST['PrecioHasta'] = "";        
-}
+// Generar consulta filtrada
+include('funciones/ListarEmpleados.php');
+$ListadoEmpleados = Listar_Empleados($MiConexion, $filtros);
+$CantidadEmpleados = count($ListadoEmpleados);
 
 
-// Variables usadas en nuevos Registros
-$matri = '';
-$dispo = '';
-$model = '';
-$grup = '';
-$combus = '';
-$sucurs = '';
+// SELECCIONES para dropdown lists
+require_once 'funciones/listar_dropdownlists.php';
 
-// Registrar nuevo vehiculo
-require_once 'funciones/RegistrarVehiculo.php';
+$ListadoTiposDeContratos = Listar_TiposContratos($MiConexion);
+$CantidadTiposContratos = count($ListadoTiposDeContratos);
 
-if (!empty($_POST['BotonRegistrarVehiculo'])) {
+$ListadoPuestos = Listar_Puestos($MiConexion);
+$CantidadPuestos = count($ListadoPuestos);
 
-    // Capturo los datos
-    $matri = $_POST['MatriculaREG'];
-    $matri = "$matri";
-    $model = $_POST['ModeloREG'];
-    $grup = $_POST['GrupoREG'];
-    $dispo = $_POST['DisponibilidadREG'];
-
-    Registrar_Vehiculo($matri, $model, $grup, $dispo, $conexion);
-
-    $_POST = array();
-    header('Location: OpVehiculos.php');
-    die();
-}
-
-// SELECCIONES para combo boxes del Registro de nuevo vehículo
-require_once 'funciones/Select_Tablas.php';
-
-$ListadoGrupo = Listar_Grupo($conexion);
-$CantidadGrupo = count($ListadoGrupo);
-
-$ListadoModelo = Listar_Modelo($conexion);
-$CantidadModelo = count($ListadoModelo);
+$ListadoEstadosContratos = Listar_EstadosContratos($MiConexion);
+$CantidadEstadosContratos = count($ListadoEstadosContratos);
 
 
-require_once "head.php";
+include('head.php');
 ?>
 
-<body>
+<body style="background-color:rgb(68, 54, 47);">
+    <div class="wrapper" style="margin-bottom: 100px; min-height: 100%;">
+        
+        <?php 
+        include('sidebarGOp.php');
+        $tituloPagina = "EMPLEADOS";
+        include('topNavBar.php');
 
-    <?php
-    $tituloPagina = "<b> Vehiculos </b>";
-    require_once "topNavBar.php";
-    require_once "sidebarGop.php";
-    ?>
+        if (isset($_GET['mensaje'])) {
+            echo '<div class="alert alert-info" role="alert">' . $_GET['mensaje'] . '</div>';
+        }
+        ?>
 
-    <div style="margin-top: 8%; margin-bottom: 8%; min-height: 100%; ">
+        <!-- Algunos efectos moderno para el form de consultas ;) -->
+        <style>
 
-        <main class="d-flex flex-column justify-content-center align-items-center h-100 bg-light bg-gradient p-4">
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
 
-            <div class="card col-10 bg-white p-4 rounded shadow mb-4">
-                <h4 class="text-center mb-4">Filtrar Vehículos</h4>
+            .filtro-clientes {
+                transition: all 0.4s ease-in-out; 
+                border-radius: 15px; 
+                background-color:rgb(19, 4, 2); 
+                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); 
+                margin-left: 2%; 
+                margin-right: 2%; 
+                margin-top: 15%;
+                animation: fadeInUp 0.8s ease-in-out; /* Hace que el cuadro "aparezca suavemente" */
+            }
 
-                <form method="post">
-                    <div class="row">
+            .filtro-clientes:hover {
+                transform: translateY(-5px); 
+                box-shadow: 0px 10px 20px rgba(198, 167, 31, 0.5);
+            }
 
-                        <div class="col-md-4 mb-3">
-                            <label for="matricula" class="form-label">Matrícula</label>
-                            <input type="text" class="form-control" id="matricula" name="Matricula" value="<?php echo !empty($_POST['Matricula']) ? $_POST['Matricula'] : ''; ?>">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="grupo" class="form-label">Grupo</label>
-                            <input type="text" class="form-control" id="grupo" name="Grupo" value="<?php echo !empty($_POST['Grupo']) ? $_POST['Grupo'] : ''; ?>">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="modelo" class="form-label">Modelo</label>
-                            <input type="text" class="form-control" id="modelo" name="Modelo" value="<?php echo !empty($_POST['Modelo']) ? $_POST['Modelo'] : ''; ?>">
-                        </div>
+            .form-control {
+                transition: all 0.3s ease-in-out;
+                border: 4px solid transparent;
+            }
+
+            .form-control:focus {
+                border: 4px solid rgb(198, 167, 31); /* Resalta con dorado */
+                box-shadow: 0px 0px 10px rgba(198, 167, 31, 0.6);
+            }
+
+            .btn-filtrar {
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .btn-filtrar:hover {
+                transform: scale(1.1); /* Botón se agranda ligeramente */
+            }
+        </style>
+
+        <div class="p-4 mb-4 shadow-sm filtro-clientes"> 
+            <h4 class="mb-5" style="color:rgb(175, 33, 8);"><strong>Filtrar Empleados</strong></h4>
+
+            <!-- Formulario de filtro -->
+            <form action="empleados.php" method="GET" onsubmit="scrollToTable()">
+
+                <div class="row">
+                    <p class="btn no-btn-effect" style="background-color: rgb(171, 142, 14); color: black; margin-left: 20px; width: 85%;">
+                        DATOS PERSONALES
+                    </p>
+                </div>
+
+                <div class="row" style="padding-top: 20px;">
+                    <div class="col-md-2">
+                        <label for="identificador" class="form-label" style="color: white !important;">Legajo</label>
+                        <input type="number" min="1" step="1" class="form-control" id="identificador" name="identificador" 
+                            value="<?= htmlspecialchars($filtros['identificador']) ?>">
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <label for="color" class="form-label">Color</label>
-                            <input type="text" class="form-control" id="color" name="Color" value="<?php echo !empty($_POST['Color']) ? $_POST['Color'] : ''; ?>">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="combustible" class="form-label">Combustible</label>
-                            <input type="text" class="form-control" id="combustible" name="Combustible" value="<?php echo !empty($_POST['Combustible']) ? $_POST['Combustible'] : ''; ?>">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="disponibilidad" class="form-label">Disponibilidad</label>
-                            <select class="form-select" id="disponibilidad" name="Disponibilidad">
-                                <option selected>Disponibilidad para arrendar...</option>
-                                <option value="S">Sí</option>
-                                <option value="N">No</option>
-                            </select>
-                        </div>
+                    <div class="col-md-2">
+                        <label for="nombre" class="form-label" style="color: white !important;">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" 
+                            value="<?= htmlspecialchars($filtros['nombre']) ?>">
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <label for="ciudadsucursal" class="form-label">Ciudad de Sucursal</label>
-                            <input type="text" class="form-control" id="ciudadsucursal" name="CiudadSucursal" value="<?php echo !empty($_POST['CiudadSucursal']) ? $_POST['CiudadSucursal'] : ''; ?>">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="direccionsucursal" class="form-label">Dirección de Sucursal</label>
-                            <input type="text" class="form-control" id="direccionsucursal" name="DireccionSucursal" value="<?php echo !empty($_POST['DireccionSucursal']) ? $_POST['DireccionSucursal'] : ''; ?>">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="telsucursal" class="form-label">Teléfono de Sucursal</label>
-                            <input type="text" class="form-control" id="telsucursal" name="TelSucursal" value="<?php echo !empty($_POST['TelSucursal']) ? $_POST['TelSucursal'] : ''; ?>">
-                        </div>
+                    <div class="col-md-2">
+                        <label for="apellido" class="form-label" style="color: white !important;">Apellido</label>
+                        <input type="text" class="form-control" id="apellido" name="apellido" 
+                            value="<?= htmlspecialchars($filtros['apellido']) ?>">
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-2 mb-2">
-                            <label for="puertas" class="form-label">Puertas</label>
-                            <input type="text" class="form-control" id="puertas" name="Puertas" value="<?php echo !empty($_POST['Puertas']) ? $_POST['Puertas'] : ''; ?>">
-                        </div>
-                        <div class="col-md-2 mb-2">
-                            <label for="asientos" class="form-label">Asientos</label>
-                            <input type="text" class="form-control" id="asientos" name="Asientos" value="<?php echo !empty($_POST['Asientos']) ? $_POST['Asientos'] : ''; ?>">
-                        </div>
-                        <div class="col-md-2 mb-2">
-                            <label for="automatico" class="form-label">Automático</label>
-                            <select class="form-select" id="automatico" name="Automatico">
-                                <option selected>Seleccionar...</option>
-                                <option value="S">Sí</option>
-                                <option value="N">No</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2 mb-2">
-                            <label for="aireacondicionado" class="form-label">Aire acondicionado</label>
-                            <select class="form-select" id="aireacondicionado" name="AireAcondicionado">
-                                <option selected>Seleccionar...</option>
-                                <option value="S">Sí</option>
-                                <option value="N">No</option>
-                            </select>
-                        </div> 
-                        <div class="col-md-2 mb-2">
-                            <label for="direccionhidraulica" class="form-label">Dirección hidráulica</label>
-                            <select class="form-select" id="direccionhidraulica" name="DireccionHidraulica">
-                                <option selected>Seleccionar...</option>
-                                <option value="S">Sí</option>
-                                <option value="N">No</option>
-                            </select>
-                        </div> 
+                    <div class="col-md-2">
+                        <label for="cuil" class="form-label" style="color: white !important;">CUIL</label>
+                        <input type="text" class="form-control" id="cuil" name="cuil" 
+                            value="<?= htmlspecialchars($filtros['cuil']) ?>">
                     </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label for="aniofabricacion" class="form-label">Año de fabricación</label>
-                            <div class="d-flex">
-                                <input type="number" step="1" min="1900" max="2050" id="fabricaciondesde" title="Desde..." class="form-control me-2" name="FabricacionDesde" 
-                                    value="<?php echo !empty($_POST['FabricacionDesde']) ? $_POST['FabricacionDesde'] : ''; ?>">
+                </div> 
 
-                                <input type="number" step="1" min="1900" max="2050" id="fabricacionhasta" title="Hasta..." class="form-control" name="FabricacionHasta" 
-                                    value="<?php echo !empty($_POST['FabricacionHasta']) ? $_POST['FabricacionHasta'] : ''; ?>">
-                            </div>
+                <div class="row" style="padding-top: 20px;">
+                    <div class="col-md-2">
+                        <label for="estadocivil" class="form-label" style="color: white !important;">Estado civil</label>
+                        <input type="text" class="form-control" id="estadocivil" name="estadocivil" 
+                            value="<?= htmlspecialchars($filtros['estadocivil']) ?>">
+                    </div>  
+
+                    <div class="col-md-4" title="Puede elegir un rango temporal, o un límite inferior o superior">
+                        <label for="fechanacimiento" class="form-label" style="color: white !important;">
+                            Fecha de nacimiento
+                        </label>
+                        <div class="d-flex">
+                            <input type="date" id="nacimientodesde" class="form-control me-2" name="nacimientodesde"
+                                value="<?= htmlspecialchars($filtros['nacimientodesde']) ?>">
+
+                            <input type="date" id="nacimientohasta" class="form-control" name="nacimientohasta"
+                                value="<?= htmlspecialchars($filtros['nacimientohasta']) ?>">
                         </div>
-                        <div class="col-md-4">
-                            <label for="fechacompra" class="form-label">Fecha de adquisición</label>
-                            <div class="d-flex">
-                                <input type="date" id="adquisiciondesde" title="Desde..." class="form-control me-2" name="AdquisicionDesde" 
-                                    value="<?php echo !empty($_POST['AdquisicionDesde']) ? $_POST['AdquisicionDesde'] : ''; ?>">
+                    </div>                  
+                </div> 
 
-                                <input type="date" id="adquisicionhasta" title="Hasta..." class="form-control" name="AdquisicionHasta" 
-                                    value="<?php echo !empty($_POST['AdquisicionHasta']) ? $_POST['AdquisicionHasta'] : ''; ?>">
-                            </div>
-                        </div> 
-                        <div class="col-md-4">
-                            <label for="precio" class="form-label">Precio vehículo</label>
-                            <div class="d-flex">
-                                <input type="number" min="0" max="1000000000" id="preciodesde" title="Desde..." class="form-control me-2" name="PrecioDesde" 
-                                    value="<?php echo !empty($_POST['PrecioDesde']) ? $_POST['PrecioDesde'] : ''; ?>">
+                <div class="row" style="padding-top: 70px;">
+                    <p class="btn no-btn-effect" style="background-color: rgb(171, 142, 14); color: black; margin-left: 20px; width: 85%;">
+                        DATOS LABORALES
+                    </p>
+                </div>
 
-                                <input type="number" min="0" max="1000000000" id="preciohasta" title="Hasta..." class="form-control" name="PrecioHasta" 
-                                    value="<?php echo !empty($_POST['PrecioHasta']) ? $_POST['PrecioHasta'] : ''; ?>">
-                            </div>
-                        </div> 
-                    </div>
+                <div class="row">
 
-                    <br><br>
-                    <button type="submit" class="btn btn-primary" name="BotonFiltro" value="Filtrando">Filtrar</button>
-                    <button type="submit" class="btn btn-primary btn-danger" name="BotonDesfiltrar" value="Desfiltrando" style="margin-left: 4%;">Limpiar Filtros</button>
-                </form>
+                    <div class="col-md-3">
+                        <label for="tipocontrato" class="form-label" style="color: white !important; margin-top: 20px;">
+                            Tipo de contrato
+                        </label>
 
-            </div>
+                        <select class="form-select form-control" aria-label="Selector" 
+                                id="selectortipocontrato" name="tipocontrato">
+                            <option value="" selected>Selecciona una opción</option>
 
-            <!-- Tabla de vehículos -->
-            <div class="card col-10 bg-white p-4 rounded shadow mb-4" style="margin-top: 5%;">
-                <h4 class="text-center mb-3">Listado de Vehículos</h4> <br>
-                <div class="table-responsive" style="max-height: 700px;">
-
-                    <table class="table table-bordered table-hover table-striped" id="tablaVehiculos">
-                        <thead class="table-dark">
-                            <tr>
-                                <th scope="col"> # </th>
-                                <th scope="col"> Matrícula </th>
-                                <th scope="col"> Vehículo </th>
-                                <th scope="col"> Combustible </th>
-                                <th scope="col"> Sucursal </th>
-                                <th scope="col"> Disp. </th>
-                                <th scope="col"> Puertas y asientos </th>
-                                <th scope="col"> Automático </th>
-                                <th scope="col"> Aire acondicionado </th>
-                                <th scope="col"> Dirección Hidráulica </th>
-                                <th scope="col"> Kilometraje </th>
-                                <th scope="col"> Motor y chasis </th>
-                                <th scope="col"> Estado físico </th>
-                                <th scope="col"> Año de fabricación </th>
-                                <th scope="col"> Adquisición </th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <?php 
-                            for ($i=0; $i < $CantidadVehiculos; $i++) { ?>
-                            
-                            <tr class='vehiculo'                                 
-                                data-id="<?= $ListadoVehiculos[$i]['vID'] ?>" 
-                                data-matricula="<?= $ListadoVehiculos[$i]['vMatricula'] ?>" 
-                                data-modelo="<?= $ListadoVehiculos[$i]['vModelo'] ?>" 
-                                data-grupo="<?= $ListadoVehiculos[$i]['vGrupo'] ?>" 
-                                data-combustible="<?= $ListadoVehiculos[$i]['vCombustible'] ?>" 
-                                data-sucursal="<?= "{$ListadoVehiculos[$i]['vSucursalDireccion']}, {$ListadoVehiculos[$i]['vSucursalCiudad']}" ?>" 
-                                data-disponibilidad="<?= $ListadoVehiculos[$i]['vDisponibilidad'] ?>" 
-                                onclick="selectRow(this, '<?= $ListadoVehiculos[$i]['vID'] ?>')" >
-
-                                <td> <?php echo $i+1; ?> </td>
-
-                                <td> <?php echo $ListadoVehiculos[$i]['vMatricula']; ?> </td>
-
-                                <td title="Modelo del vehículo y grupo al que pertenece" > 
-                                    <b>Modelo:</b> <?php echo $ListadoVehiculos[$i]['vModelo']; ?> <br><br>
-                                    <b>Grupo:</b> <?php echo $ListadoVehiculos[$i]['vGrupo']; ?> <br><br>
-                                    <b>Color:</b> <?php echo $ListadoVehiculos[$i]['vColor']; ?>
-                                </td>
-
-                                <td> <?php echo $ListadoVehiculos[$i]['vCombustible']; ?> </td>
-
-                                <td> <?php echo "{$ListadoVehiculos[$i]['vSucursalCiudad']}, 
-                                                {$ListadoVehiculos[$i]['vSucursalDireccion']}"; ?> <br><br>
-                                     <b>Tel:</b> <?php echo $ListadoVehiculos[$i]['vSucursalTel']; ?> 
-                                </td>
-
-                                <td title="Disponibilidad"> 
-                                    <span class="badge badge-<?php echo $ListadoVehiculos[$i]['ColorAdvertencia']; ?>"> 
-                                        <?php echo $ListadoVehiculos[$i]['vDisponibilidad']; ?> 
-                                    </span>
-                                </td>
-
-                                <td> 
-                                    <b>Puertas:</b> <?php echo $ListadoVehiculos[$i]['vNumeroPuertas']; ?> <br><br>
-                                    <b>Asientos:</b> <?php echo $ListadoVehiculos[$i]['vNumeroAsientos']; ?> pasajeros
-                                </td>
-
-                                <td title="Automático"> <?php echo $ListadoVehiculos[$i]['vAutomatico']; ?> </td>
-
-                                <td title="Aire acondicionado"> <?php echo $ListadoVehiculos[$i]['vAire']; ?> </td>
-
-                                <td title="Dirección hidráulica"> <?php echo $ListadoVehiculos[$i]['vHidraulica']; ?> </td>
-
-                                <td title="Kilometraje"> <?php echo $ListadoVehiculos[$i]['vKilometraje']; ?> </td>
-
-                                <td> 
-                                    <b>NºMotor:</b> <?php echo $ListadoVehiculos[$i]['vNumeroMotor']; ?> <br><br>
-                                    <b>NºChasis:</b> <?php echo $ListadoVehiculos[$i]['vNumeroChasis']; ?> 
-                                </td>
-
-                                <td title="Estado físico del vehículo"> <?php echo $ListadoVehiculos[$i]['vEstadoFisico']; ?> </td>
-
-                                <td title="Año de fabricación del vehículo"> <?php echo $ListadoVehiculos[$i]['vAnio']; ?> </td>
-
-                                <td title="Fecha de compra y precio al que la empresa adquirió el vehículo"> 
-                                    <b>Fecha:</b><br> <?php echo $ListadoVehiculos[$i]['vFechaCompra']; ?> <br><br>
-                                    <b>Precio:</b><br> 
-                                    <?php 
-                                    if ($ListadoVehiculos[$i]['vPrecioCompra'] != "Sin información") {
-                                        echo "$ "; 
-                                        echo $ListadoVehiculos[$i]['vPrecioCompra']; 
-                                        echo " USD";
-                                    }
-                                    else {
-                                        echo $ListadoVehiculos[$i]['vPrecioCompra']; 
-                                    }
-                                    ?> 
-                                </td>
-
-                            </tr>
-                            <?php 
+                            <?php
+                            // Asegurate de que $ListadoTiposDeContratos contiene datos antes de procesarlo
+                            if (!empty($ListadoTiposDeContratos)) {
+                                
+                                $selected = '';
+                                for ($i = 0; $i < $CantidadTiposContratos; $i++) { 
+                                    // Primero la lógica para verificar qué registro fue seleccionado antes y autocompletar durante recargo de página
+                                    $selected = (!empty($_GET['tipocontrato']) && $_GET['tipocontrato'] == $ListadoTiposDeContratos[$i]['id']) ? 'selected' : '';
+                                    // luego las opciones
+                                    echo "<option value='{$ListadoTiposDeContratos[$i]['id']}' $selected> {$ListadoTiposDeContratos[$i]['descripcion']} </option>";
+                                }
                             } 
+                            else {
+                                echo "<option value=''>No se encontraron tipos de contratos registrados</option>";
+                            }
                             ?>
+                        </select>
+                    </div>
 
-                        </tbody>
-                        
-                    </table>
-                </div>
-            </div>
-            <br><br>
-            <div class="d-flex justify-content-between col-8">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#nuevoVehiculo">Nuevo</button>
-                <button type="button" class="btn btn-primary" id="btnModificar" onclick="modificarVehiculo()" disabled>Modificar</button>
-                <button type="button" class="btn btn-warning" id="btnEliminar" onclick="eliminarVehiculo()" disabled>Eliminar</button>
-            </div>
+                    <div class="col-md-3">
+                        <label for="puesto" class="form-label" style="color: white !important; margin-top: 20px;">
+                            Puesto
+                        </label>
 
-        </main>
-    </div>
+                        <select class="form-select form-control" aria-label="Selector" 
+                                id="selectorpuesto" name="puesto">
+                            <option value="" selected>Selecciona una opción</option>
 
-    <!-- Modal para nuevo vehículo -->
-    <div class="modal fade" id="nuevoVehiculo" tabindex="-1" aria-labelledby="nuevoVehiculoLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="nuevoVehiculoLabel">Agregar Nuevo Vehículo</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-
-                    <!-- Form para agregar vehículo -->
-                    <form method="post">
-
-                        <div class="mb-3">
-                            <label for="matricula" class="form-label">Matrícula</label>
-                            <input type="text" maxlength="7" class="form-control" name="MatriculaREG" value="" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="modelo" class="form-label">Modelo</label>
-                            <select class="form-select" aria-label="Selector" id="selector" name="ModeloREG" required>
-                                <option value="" selected>Selecciona una opción</option>
-
-                                <?php 
-                                // Asegúrate de que $ListadoModelo contiene datos antes de procesarlo
-                                if (!empty($ListadoModelo)) {
-                                    $selected = '';
-                                    for ($i = 0; $i < $CantidadModelo; $i++) {
-                                        // Lógica para verificar si el grupo debe estar seleccionado
-                                        $selected = (!empty($_POST['ModeloREG']) && $_POST['ModeloREG'] == $ListadoModelo[$i]['IdModelo']) ? 'selected' : '';
-                                        echo "<option value='{$ListadoModelo[$i]['IdModelo']}' $selected>{$ListadoModelo[$i]['NombreModelo']}</option>";
-                                    }
-                                } 
-                                else {
-                                    echo "<option value=''>No se encontraron grupos</option>";
+                            <?php
+                            // Asegurate de que $ListadoPuestos contiene datos antes de procesarlo
+                            if (!empty($ListadoPuestos)) {
+                                
+                                $selected = '';
+                                for ($i = 0; $i < $CantidadPuestos; $i++) { 
+                                    // Primero la lógica para verificar qué registro fue seleccionado antes y autocompletar durante recargo de página
+                                    $selected = (!empty($_GET['puesto']) && $_GET['puesto'] == $ListadoPuestos[$i]['id']) ? 'selected' : '';
+                                    // luego las opciones
+                                    echo "<option value='{$ListadoPuestos[$i]['id']}' $selected> {$ListadoPuestos[$i]['descripcion']} </option>";
                                 }
-                                ?>
-                            </select>
+                            } 
+                            else {
+                                echo "<option value=''>No se encontraron puestos en la base de datos</option>";
+                            }
+                            ?>
+                        </select>
+                    </div> 
 
-                        </div>
+                    <div class="col-md-3">
+                        <label for="estadocontrato" class="form-label" style="color: white !important; margin-top: 20px;">
+                            Estado del contrato
+                        </label>
 
-                        <div class="mb-3">
-                            <label for="grupo" class="form-label">Grupo</label>
-                            <select class="form-select" aria-label="Selector" id="selector" name="GrupoREG" required>
-                                <option value="" selected>Selecciona una opción</option>
+                        <select class="form-select form-control" aria-label="Selector" 
+                                id="selectorestadocontrato" name="estadocontrato">
+                            <option value="" selected>Selecciona una opción</option>
 
-                                <?php 
-                                // Asegúrate de que $ListadoGrupo contiene datos antes de procesarlo
-                                if (!empty($ListadoGrupo)) {
-                                    $selected = '';
-                                    for ($i = 0; $i < $CantidadGrupo; $i++) {
-                                        // Lógica para verificar si el grupo debe estar seleccionado
-                                        $selected = (!empty($_POST['GrupoREG']) && $_POST['GrupoREG'] == $ListadoGrupo[$i]['IdGrupo']) ? 'selected' : '';
-                                        echo "<option value='{$ListadoGrupo[$i]['IdGrupo']}' $selected>{$ListadoGrupo[$i]['NombreGrupo']}</option>";
-                                    }
-                                } 
-                                else {
-                                    echo "<option value=''>No se encontraron grupos</option>";
+                            <?php
+                            // Asegurate de que $ListadoEstadosContratos contiene datos antes de procesarlo
+                            if (!empty($ListadoEstadosContratos)) {
+                                
+                                $selected = '';
+                                for ($i = 0; $i < $CantidadEstadosContratos; $i++) { 
+                                    // Primero la lógica para verificar qué registro fue seleccionado antes y autocompletar durante recargo de página
+                                    $selected = (!empty($_GET['estadocontrato']) && $_GET['estadocontrato'] == $ListadoEstadosContratos[$i]['id']) ? 'selected' : '';
+                                    // luego las opciones
+                                    echo "<option value='{$ListadoEstadosContratos[$i]['id']}' $selected> {$ListadoEstadosContratos[$i]['estado']} </option>";
                                 }
-                                ?>
-                            </select>
+                            } 
+                            else {
+                                echo "<option value=''>No se encontraron estados registrados en la base de datos</option>";
+                            }
+                            ?>
+                        </select>
+                    </div> 
+                </div> 
+
+                <div class="row" style="padding-top: 20px;">
+
+                    <div class="col-md-2">
+                        <label for="obrasocial" class="form-label" style="color: white !important;">Obra social</label>
+                        <input type="text" class="form-control" id="obrasocial" name="obrasocial" 
+                            value="<?= htmlspecialchars($filtros['obrasocial']) ?>">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="banco" class="form-label" style="color: white !important;">Banco</label>
+                        <input type="text" class="form-control" id="banco" name="banco" 
+                            value="<?= htmlspecialchars($filtros['banco']) ?>">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="cbu" class="form-label" style="color: white !important;">CBU</label>
+                        <input type="text" class="form-control" id="cbu" name="cbu" 
+                            value="<?= htmlspecialchars($filtros['cbu']) ?>">
+                    </div>
+                </div> 
+
+                <div class="row" style="padding-top: 20px;">
+                    <div class="col-md-4" title="Puede elegir un rango temporal, o un límite inferior o superior">
+                        <label for="fechaingreso" class="form-label" style="color: white !important;">
+                            Fecha de ingreso
+                        </label>
+                        <div class="d-flex">
+                            <input type="date" id="ingresodesde" class="form-control me-2" name="ingresodesde"
+                                value="<?= htmlspecialchars($filtros['ingresodesde']) ?>">
+
+                            <input type="date" id="ingresohasta" class="form-control" name="ingresohasta"
+                                value="<?= htmlspecialchars($filtros['ingresohasta']) ?>">
+                        </div>
+                    </div>
+                </div> 
+
+                <div class="row" style="padding-top: 70px;">
+                    <p class="btn no-btn-effect" style="background-color: rgb(171, 142, 14); color: black; margin-left: 20px; width: 85%;">
+                        INFORMACIÓN DE CONTACTO
+                    </p>
+                </div>
+
+                <div class="row" style="padding-top: 20px;">
+                    <div class="col-md-3">
+                        <label for="email" class="form-label" style="color: white !important;">Email</label>
+                        <input type="text" class="form-control" id="email" name="email" 
+                            value="<?= htmlspecialchars($filtros['email']) ?>">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="telefono" class="form-label" style="color: white !important;">Teléfono</label>
+                        <input type="text" class="form-control" id="telefono" name="telefono" 
+                            value="<?= htmlspecialchars($filtros['telefono']) ?>">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="direccion" class="form-label" style="color: white !important;">Dirección</label>
+                        <input type="text" class="form-control" id="direccion" name="direccion" 
+                            value="<?= htmlspecialchars($filtros['direccion']) ?>">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="localidad" class="form-label" style="color: white !important;">Localidad</label>
+                        <input type="text" class="form-control" id="localidad" name="localidad" 
+                            value="<?= htmlspecialchars($filtros['localidad']) ?>">
+                    </div>
+                </div>
+
+                <div class="mt-3" style="padding-top: 50px; padding-bottom: 50px;">
+                    <button type="submit" class="btn btn-filtrar" style="background-color: rgb(175, 33, 8); color: white; margin-right: 20px;">
+                        <i class="fas fa-search"></i> Consultar
+                    </button>
+                    <a href="empleados.php" class="btn btn-filtrar" style="background-color: rgb(175, 33, 8); color: white;">
+                        Limpiar Filtros
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Botones del listado -->
+        <div class="d-flex justify-content-between" style="margin-left: 2%; margin-right: 2%; margin-top: 8%;">
+            
+            <button class="btn btn-filtrar" style="background-color: rgb(175, 33, 8); color: white;" 
+                    data-bs-toggle="modal" data-bs-target="#nuevoEmpleadoModal">
+                <i class="fas fa-plus-circle"></i> Nuevo empleado
+            </button>
+            <div>
+                <button class="btn btn-warning btn-filtrar" id="btnModificar" onclick="modificarEmpleado()" disabled>
+                    Modificar Empleado
+                </button>
+                <button class="btn btn-warning btn-filtrar" style="margin-left: 20px;" id="btnEliminar" onclick="eliminarEmpleado()" disabled>
+                    <i class="fas fa-trash-alt"></i> Eliminar
+                </button>
+            </div>
+        </div>
+        
+        <!-- Sección de Listado Empleados -->
+        <div id="tablaEmpleadosContenedor" class="table-responsive p-4 mb-4 border border-secondary rounded bg-white shadow-sm" 
+             style="max-width: 97%; max-height: 700px; margin-left: 2%; margin-right: 2%; margin-top: 3%;">
+            <h5 class="mb-4" style="color:rgb(175, 33, 8);"><strong>Listado de Empleados</strong></h5><br>
+            <table class="table table-hover" id="tablaEmpleados" >
+                <thead>
+                    <tr>
+                        <th style='color: #bd399e;'><h3>N</h3></th>
+                        <th>Legajo</th>
+                        <th>Nombre</th>
+                        <th>Datos Personales</th>
+                        <th>Tipo de Contrato</th>
+                        <th>Puesto</th>
+                        <th>Estado del Contrato</th>
+                        <th>Obra social</th>
+                        <th>Banco</th>
+                        <th>Fecha Ingreso</th>
+                        <th>Contacto</th>
+                        <th>Residencia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $contador = "1";
+
+                    for ($i = 0; $i < $CantidadEmpleados; $i++) {
+                        echo "<tr class='empleado' data-id='" . $ListadoEmpleados[$i]['idEmpleado'] . "'>
+                            <td><span style='color: #bd399e;'><h3>" . $contador . "</h3></span></td>
+                            <td title='Número identificador del empleado en la empresa'>" . $ListadoEmpleados[$i]['idEmpleado'] . "</td>
+                            <td>" . $ListadoEmpleados[$i]['apellidoEmpleado'] . " " . $ListadoEmpleados[$i]['nombreEmpleado'] . "</td>
+                            <td title='Datos personales'> CUIL: " . $ListadoEmpleados[$i]['cuilEmpleado'] . "<br> Estado civil: " . $ListadoEmpleados[$i]['estadocivil'] . "<br> Nacimiento: " . $ListadoEmpleados[$i]['fechanacimiento'] . "</td>
+                            <td title='Tipo de contrato'>" . $ListadoEmpleados[$i]['tcDescripcion'] . "</td>
+                            <td title='Puesto'>" . $ListadoEmpleados[$i]['cDescripcion'] . "</td>
+                            <td title='Estado del Contrato'>" . $ListadoEmpleados[$i]['ecEstado'] . "</td>
+                            <td title='Obra social'>" . $ListadoEmpleados[$i]['obrasocial'] . "</td>
+                            <td title='Información bancaria'> Banco:" . $ListadoEmpleados[$i]['banco'] . "<br>CBU: " . $ListadoEmpleados[$i]['cbu'] . "</td>
+                            <td title='Fecha de ingreso a la compañía'>" . $ListadoEmpleados[$i]['fechaingreso'] . "</td>
+                            <td title='Contacto'> Correo: " . $ListadoEmpleados[$i]['mail'] . "<br>Tel: " . $ListadoEmpleados[$i]['telefono'] . "</td>
+                            <td title='Residencia'> Dirección: " . $ListadoEmpleados[$i]['direccion'] . "<br>Localidad: " . $ListadoEmpleados[$i]['localidad'] . "</td>
+                        </tr>";
+                        $contador++;
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Recuadro con cantidad total de registros encontrados -->
+        <style>
+            .no-btn-effect {
+                pointer-events: none; /* Evita que se comporte como un botón */
+                box-shadow: none !important; 
+                cursor: default !important; /* Hace que el cursor no cambie */
+                border: none; 
+            }
+        </style>
+        <p class="btn no-btn-effect" style="background-color: white; color: black; margin-left: 25px;">
+            Total de registros encontrados: <?php echo $CantidadEmpleados; ?>
+        </p>
+
+        <!-- IMPRESIÓN DEL LISTADO -->
+
+        <style>
+            .btn-print {
+                background-color: #FF7300; /* Naranja fuerte */
+                color: white;
+                font-size: 18px;
+                font-weight: bold;
+                margin: 50px 0 30px;
+                padding: 12px 24px;
+                border-radius: 8px;
+                transition: all 0.3s ease-in-out;
+                border: none;
+                cursor: pointer;
+            }
+
+            .btn-print:hover {
+                background-color: #D96000; /* Oscurece al pasar el mouse */
+                transform: scale(1.1); /* Efecto de agrandamiento */
+            }
+        </style>
+
+        <div class="text-center mt-4">  
+            <a href="impresion-ListadoClientes.php"> <button class="btn btn-print">🖨️ Imprimir Listado PDF</button></a>
+        </div>
+
+
+        <!-- Estilo para el modal de registro de Nuevo Cliente -->
+        <style>
+            .modal-custom {
+                background-color: #262626; /* Color oscuro fondo */ 
+                color: white; /* Texto blanco para mayor contraste */
+                border-radius: 10px;
+            }
+            .modal-header {
+                background-color: rgb(175, 33, 8); /* Mantiene el color del resto de la página */
+            }
+            .modal-footer {
+                background-color: #2C211B;
+            }
+            .modal-backdrop {
+                backdrop-filter: blur(10px); /* Aplica el efecto borroso */
+                background-color: rgba(0, 0, 0, 0.3) !important; /* Oscurece un poco el fondo */
+            }
+        </style>
+
+        <!-- Modal para Nuevo Empleado -->
+        <div class="modal fade" id="nuevoEmpleadoModal" 
+             tabindex="-1" aria-labelledby="nuevoEmpleadoModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content modal-custom">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="nuevoEmpleadoModalLabel">Agregar Nuevo Empleado</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <!-- Form -->
+                    <form action="nuevo-empleado.php" method="POST">
+                        <div class="modal-body">
+
+                            <div class="mb-3">
+                                <label for="cuil-modal" class="form-label" style="color: white !important;">
+                                    CUIL
+                                </label>
+                                <input type="number" step="1"
+                                        title="Solo se admiten cuil con 7 a 12 dígitos"
+                                        class="form-control" id="cuil-modal" name="Cuil" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="nombre-modal" class="form-label" style="color: white !important;">
+                                    Nombre
+                                </label>
+                                <input type="text" class="form-control" id="nombre-modal" name="Nombre" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="apellido-modal" class="form-label" style="color: white !important;">
+                                    Apellido
+                                </label>
+                                <input type="text" class="form-control" id="apellido-modal" name="Apellido" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="fechanacimiento-modal" class="form-label" style="color: white !important;">
+                                    Fecha de Nacimiento
+                                </label>
+                                <input type="date" class="form-control" id="fechanacimiento-modal" name="FechaNacimiento" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="estadocivil-modal" class="form-label" style="color: white !important;">
+                                    Estado Civil
+                                </label>
+                                <input type="text" class="form-control" id="estadocivil-modal" name="EstadoCivil" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="fechaingreso-modal" class="form-label" style="color: white !important;">
+                                    Fecha de Ingreso
+                                </label>
+                                <input type="date" class="form-control" id="fechaingreso-modal" name="FechaIngreso" required>
+                            </div>
+
+                            <div>
+                                <label for="tipocontrato-modal" class="form-label" style="color: white !important; margin-top: 20px;">
+                                    Tipo de contrato
+                                </label>
+
+                                <select class="form-select form-control" aria-label="Selector" 
+                                        id="tipocontrato-modal" name="tipocontrato" required>
+                                    <option value="" selected>Selecciona una opción</option>
+
+                                    <?php
+                                    // Asegurate de que $ListadoTiposDeContratos contiene datos antes de procesarlo
+                                    if (!empty($ListadoTiposDeContratos)) {
+                                        
+                                        $selected = '';
+                                        for ($i = 0; $i < $CantidadTiposContratos; $i++) { 
+                                            // Primero la lógica para verificar qué registro fue seleccionado antes y autocompletar durante recargo de página
+                                            $selected = (!empty($_POST['tipocontrato']) && $_POST['tipocontrato'] == $ListadoTiposDeContratos[$i]['id']) ? 'selected' : '';
+                                            // luego las opciones
+                                            echo "<option value='{$ListadoTiposDeContratos[$i]['id']}' $selected> {$ListadoTiposDeContratos[$i]['descripcion']} </option>";
+                                        }
+                                    } 
+                                    else {
+                                        echo "<option value=''>No se encontraron tipos de contratos registrados</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="puesto-modal" class="form-label" style="color: white !important; margin-top: 20px;">
+                                    Puesto
+                                </label>
+
+                                <select class="form-select form-control" aria-label="Selector" 
+                                        id="puesto-modal" name="puesto" required>
+                                    <option value="" selected>Selecciona una opción</option>
+
+                                    <?php
+                                    // Asegurate de que $ListadoPuestos contiene datos antes de procesarlo
+                                    if (!empty($ListadoPuestos)) {
+                                        
+                                        $selected = '';
+                                        for ($i = 0; $i < $CantidadPuestos; $i++) { 
+                                            // Primero la lógica para verificar qué registro fue seleccionado antes y autocompletar durante recargo de página
+                                            $selected = (!empty($_POST['puesto']) && $_POST['puesto'] == $ListadoPuestos[$i]['id']) ? 'selected' : '';
+                                            // luego las opciones
+                                            echo "<option value='{$ListadoPuestos[$i]['id']}' $selected> {$ListadoPuestos[$i]['descripcion']} </option>";
+                                        }
+                                    } 
+                                    else {
+                                        echo "<option value=''>No se encontraron puestos en la base de datos</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div> 
+
+                            <div>
+                                <label for="estadocontrato-modal" class="form-label" style="color: white !important; margin-top: 20px;">
+                                    Estado del contrato
+                                </label>
+
+                                <select class="form-select form-control" aria-label="Selector" 
+                                        id="estadocontrato-modal" name="estadocontrato" required>
+                                    <option value="" selected>Selecciona una opción</option>
+
+                                    <?php
+                                    // Asegurate de que $ListadoEstadosContratos contiene datos antes de procesarlo
+                                    if (!empty($ListadoEstadosContratos)) {
+                                        
+                                        $selected = '';
+                                        for ($i = 0; $i < $CantidadEstadosContratos; $i++) { 
+                                            // Primero la lógica para verificar qué registro fue seleccionado antes y autocompletar durante recargo de página
+                                            $selected = (!empty($_POST['estadocontrato']) && $_POST['estadocontrato'] == $ListadoEstadosContratos[$i]['id']) ? 'selected' : '';
+                                            // luego las opciones
+                                            echo "<option value='{$ListadoEstadosContratos[$i]['id']}' $selected> {$ListadoEstadosContratos[$i]['estado']} </option>";
+                                        }
+                                    } 
+                                    else {
+                                        echo "<option value=''>No se encontraron estados registrados en la base de datos</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div> <br><br>
+
+                            <div class="mb-3">
+                                <label for="obrasocial-modal" class="form-label" style="color: white !important;">
+                                    Obra Social
+                                </label>
+                                <input type="text" class="form-control" id="obrasocial-modal" name="ObraSocial" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="banco-modal" class="form-label" style="color: white !important;">
+                                    Banco
+                                </label>
+                                <input type="text" class="form-control" id="banco-modal" name="Banco" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="cbu-modal" class="form-label" style="color: white !important;">
+                                    CBU
+                                </label>
+                                <input type="text" class="form-control" id="cbu-modal" name="Cbu" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="email-modal" class="form-label" style="color: white !important;">
+                                    Email
+                                </label>
+                                <input type="email" class="form-control" id="email-modal" name="Email" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="telefono-modal" class="form-label" style="color: white !important;">
+                                    Teléfono
+                                </label>
+                                <input type="number" step="1" 
+                                        title="Solo se admiten números telefónicos con 8 a 12 dígitos" 
+                                        class="form-control" id="telefono-modal" name="Telefono" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="direccion-modal" class="form-label" style="color: white !important;">
+                                    Dirección
+                                </label>
+                                <input type="text" class="form-control" id="direccion-modal" name="Direccion" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="localidad-modal" class="form-label" style="color: white !important;">
+                                    Localidad
+                                </label>
+                                <input type="text" class="form-control" id="localidad-modal" name="Localidad" required>
+                            </div>
+                            
                         </div>
 
-                        <div class="mb-3">
-                            <label for="disponible" class="form-label">Disponible</label>
-                            <select class="form-select" name="DisponibilidadREG" required>
-                                <option value="S">Sí</option>
-                                <option value="N">No</option>
-                            </select>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-warning" data-bs-dismiss="modal">
+                                Cerrar
+                            </button>
+                            <button type="submit" class="btn" style="background-color: rgb(175, 33, 8); color: white;">
+                                Guardar
+                            </button>
                         </div>
 
-                        <button type="submit" class="btn btn-primary" name="BotonRegistrarVehiculo" value="RegistrandoVehiculo" >Agregar</button>
                     </form>
-
                 </div>
             </div>
         </div>
+
+        <div style="padding-top: 5%; padding-bottom: 20px;">
+            <?php require_once "foot.php"; ?>
+        </div>
+
     </div>
-    
+
+
     <script>
 
-        let vehiculoSeleccionado = null;
+        // Desplazamiento vertical al listado luego de consulta
+        function scrollToTable() {
+            localStorage.setItem('scrollToTable', 'true'); // Guardar indicador antes de enviar
+        }
 
-        // Sombreado de fila en la Tabla de Vehiculos al hacer clic en la misma
-        document.querySelectorAll('#tablaVehiculos .vehiculo').forEach(row => {
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('scrollToTable') === 'true') {
+                setTimeout(() => {
+                    document.getElementById('tablaEmpleadosContenedor').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    localStorage.removeItem('scrollToTable'); // Limpiar indicador después del scroll
+                }, 500); 
+            }
+        });
+
+        // Selección de cliente al hacer clic en una fila
+        let empleadoSeleccionado = null;
+
+        document.querySelectorAll('#tablaEmpleados .empleado').forEach(row => {
             row.addEventListener('click', () => {
                 // Desmarcar cualquier fila previamente seleccionada
-                document.querySelectorAll('.vehiculo').forEach(row => row.classList.remove('table-active'));
+                document.querySelectorAll('.empleado').forEach(row => row.classList.remove('table-active'));
                 // Marcar la fila seleccionada
                 row.classList.add('table-active');
-                vehiculoSeleccionado = row.dataset.id;
+                empleadoSeleccionado = row.dataset.id;
                 // Habilitar los botones
                 document.getElementById('btnModificar').disabled = false;
                 document.getElementById('btnEliminar').disabled = false;
             });
         });
 
-        // Función para redirigir a ModificarVehiculo.php con el ID del Vehículo seleccionado
-        function modificarVehiculo() {
-            if (vehiculoSeleccionado) {
-                window.location.href = 'ModificarVehiculo.php?id=' + vehiculoSeleccionado;
+        // Función para redirigir a modificar-empleado.php con el ID del cliente seleccionado
+        function modificarEmpleado() {
+            if (empleadoSeleccionado) {
+                window.location.href = 'modificar-empleado.php?id=' + empleadoSeleccionado;
             }
         }
 
-        // Función para redirigir a EliminarVehiculo.php con el ID del Vehículo seleccionado
-        function eliminarVehiculo() {
-            if (vehiculoSeleccionado) {
-                if (confirm('¿Estás seguro de que quieres eliminar este Vehículo?')) {
-                    window.location.href = 'EliminarVehiculo.php?id=' + vehiculoSeleccionado;
+        // Función para redirigir a eliminar-empleado.php con el ID del cliente seleccionado
+        function eliminarEmpleado() {
+            if (empleadoSeleccionado) {
+                if (confirm('¿Estás seguro de que quieres eliminar este empleado?')) {
+                    window.location.href = 'eliminar-empleado.php?id=' + empleadoSeleccionado;
                 }
             }
         }
 
     </script>
+    
+    <script>
 
+        // SELECT2 para los controles tipo "select" con listas dropdown, tanto en el form de filtros como en el modal para el registro de un nuevo empleado
 
+        $(document).ready(function () {
+            let selectores = [
+                { id: '#selectortipocontrato', modal: false },
+                { id: '#selectorpuesto', modal: false },
+                { id: '#selectorestadocontrato', modal: false },
+                { id: '#selectortipocontratomodal', modal: true },
+                { id: '#selectorpuestomodal', modal: true },
+                { id: '#selectorestadocontratomodal', modal: true }
+            ];
+
+            selectores.forEach(selector => {
+                $(selector.id).select2({
+                    dropdownParent: selector.modal ? $('#nuevoEmpleadoModal') : null,
+                    width: '100%',
+                    minimumResultsForSearch: 0
+                });
+            });
+        });
+
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-    <div style="">
-        <?php require_once "foot.php"; ?>
-    </div>
+    <!-- Librería SELECT2 para agregar buscador a dropdown lists -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 </body>
 </html>
-
-
