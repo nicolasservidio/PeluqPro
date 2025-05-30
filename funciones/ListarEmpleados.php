@@ -179,5 +179,13 @@ function Listar_Empleados($MiConexion, $filtros = []) {
 
     $stmt->execute();
     $result = $stmt->get_result();
-    return $result->fetch_all(MYSQLI_ASSOC);
+
+    $empleados = $result->fetch_all(MYSQLI_ASSOC);
+
+    // 🔥 Aplicar transformación en los puestos después de la consulta
+    foreach ($empleados as &$empleado) {
+        $empleado['cDescripcion'] = ucwords(strtolower(str_replace('_', ' ', $empleado['cDescripcion']))); // inicial en mayúscula, demás letras minúscula, y remplazo guiones bajos por espacios
+    }
+
+    return $empleados;
 }

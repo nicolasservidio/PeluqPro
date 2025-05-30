@@ -364,12 +364,12 @@ include('head.php');
                 <thead>
                     <tr>
                         <th style='color: #bd399e;'><h3>N</h3></th>
-                        <th>Legajo</th>
-                        <th>Nombre</th>
-                        <th>Datos Personales</th>
-                        <th>Tipo de Contrato</th>
                         <th>Puesto</th>
+                        <th>Tipo de Contrato</th>
                         <th>Estado del Contrato</th>
+                        <th>Nombre</th>
+                        <th>Legajo</th>
+                        <th>Datos Personales</th>
                         <th>Obra social</th>
                         <th>Banco</th>
                         <th>Fecha Ingreso</th>
@@ -382,19 +382,72 @@ include('head.php');
                     $contador = "1";
                     
                     for ($i = 0; $i < $CantidadEmpleados; $i++) {
+
+                        $estadoContrato = $ListadoEmpleados[$i]['ecEstado'];
+                        $clase = '';
+
+                        switch ($estadoContrato) {
+                            case 'Activo':
+                                $clase = 'primary'; // azul
+                                break;
+                            case 'Licencia':
+                                $clase = 'success'; // verde
+                                break;
+                            case 'Baja voluntaria':
+                                $clase = 'danger'; // rojo
+                                break;
+                            case 'Despido con causa':
+                                $clase = 'danger'; // rojo
+                                break;
+                            case 'Despido sin causa':
+                                $clase = 'danger'; // rojo
+                                break;
+                            case 'Suspendido':
+                                $clase = 'warning'; // naranja
+                                break;
+                            case 'Jubilado':
+                                $clase = 'secondary'; // púrpura
+                                break;
+                            case 'Fallecido':
+                                $clase = 'secondary'; // púrpura
+                                break;
+                            case 'Vencido':
+                                $clase = 'info'; // celeste
+                                break;
+                            case 'Reubicado':
+                                $clase = 'info'; // celeste
+                                break;
+                            default:
+                                $clase = 'info'; // celeste
+                                break;
+                        }
+
                         echo "<tr class='empleado' data-id='" . $ListadoEmpleados[$i]['idEmpleado'] . "'>
+
                             <td><span style='color: #bd399e;'><h3>" . $contador . "</h3></span></td>
-                            <td title='Número identificador del empleado en la empresa'>" . $ListadoEmpleados[$i]['idEmpleado'] . "</td>
-                            <td>" . $ListadoEmpleados[$i]['apellidoEmpleado'] . " " . $ListadoEmpleados[$i]['nombreEmpleado'] . "</td>
-                            <td title='Datos personales'> <b>CUIL</b>: " . $ListadoEmpleados[$i]['cuilEmpleado'] . "<br><br> <b>Estado civil:</b> " . $ListadoEmpleados[$i]['estadocivil'] . "<br><br> <b>Nacimiento:</b> " . $ListadoEmpleados[$i]['fechanacimiento'] . "</td>
-                            <td title='Tipo de contrato'>" . $ListadoEmpleados[$i]['tcDescripcion'] . "</td>
+
                             <td title='Puesto'>" . $ListadoEmpleados[$i]['cDescripcion'] . "</td>
-                            <td title='Estado del Contrato'>" . $ListadoEmpleados[$i]['ecEstado'] . "</td>
+
+                            <td title='Tipo de contrato'>" . $ListadoEmpleados[$i]['tcDescripcion'] . "</td>
+
+                            <td title='Estado del Contrato'> <span class='badge badge-$clase'>" . $estadoContrato . "</span> </td>
+
+                            <td>" . $ListadoEmpleados[$i]['apellidoEmpleado'] . " " . $ListadoEmpleados[$i]['nombreEmpleado'] . "</td>
+
+                            <td title='Número identificador del empleado en la empresa'>" . $ListadoEmpleados[$i]['idEmpleado'] . "</td>
+
+                            <td title='Datos personales'> <b>CUIL</b>: " . $ListadoEmpleados[$i]['cuilEmpleado'] . "<br><br> <b>Estado civil:</b> " . $ListadoEmpleados[$i]['estadocivil'] . "<br><br> <b>Nacimiento:</b> " . $ListadoEmpleados[$i]['fechanacimiento'] . "</td>
+
                             <td title='Obra social'>" . $ListadoEmpleados[$i]['obrasocial'] . "</td>
+
                             <td title='Información bancaria'> <b>Banco:</b> " . $ListadoEmpleados[$i]['banco'] . "<br><br> <b>CBU:</b> " . $ListadoEmpleados[$i]['cbu'] . "</td>
+
                             <td title='Fecha de ingreso a la compañía'>" . $ListadoEmpleados[$i]['fechaingreso'] . "</td>
+
                             <td title='Contacto'> <b>Correo:</b> " . $ListadoEmpleados[$i]['mail'] . "<br><br> <b>Tel:</b> " . $ListadoEmpleados[$i]['telefono'] . "</td>
+
                             <td title='Residencia'> <b>Dirección:</b> " . $ListadoEmpleados[$i]['direccion'] . "<br><br> <b>Localidad:</b> " . $ListadoEmpleados[$i]['localidad'] . "</td>
+
                         </tr>";
                         $contador++;
                     }
