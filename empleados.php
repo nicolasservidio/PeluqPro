@@ -380,21 +380,21 @@ include('head.php');
                 <tbody>
                     <?php
                     $contador = "1";
-
+                    
                     for ($i = 0; $i < $CantidadEmpleados; $i++) {
                         echo "<tr class='empleado' data-id='" . $ListadoEmpleados[$i]['idEmpleado'] . "'>
                             <td><span style='color: #bd399e;'><h3>" . $contador . "</h3></span></td>
                             <td title='Número identificador del empleado en la empresa'>" . $ListadoEmpleados[$i]['idEmpleado'] . "</td>
                             <td>" . $ListadoEmpleados[$i]['apellidoEmpleado'] . " " . $ListadoEmpleados[$i]['nombreEmpleado'] . "</td>
-                            <td title='Datos personales'> CUIL: " . $ListadoEmpleados[$i]['cuilEmpleado'] . "<br> Estado civil: " . $ListadoEmpleados[$i]['estadocivil'] . "<br> Nacimiento: " . $ListadoEmpleados[$i]['fechanacimiento'] . "</td>
+                            <td title='Datos personales'> <b>CUIL</b>: " . $ListadoEmpleados[$i]['cuilEmpleado'] . "<br><br> <b>Estado civil:</b> " . $ListadoEmpleados[$i]['estadocivil'] . "<br><br> <b>Nacimiento:</b> " . $ListadoEmpleados[$i]['fechanacimiento'] . "</td>
                             <td title='Tipo de contrato'>" . $ListadoEmpleados[$i]['tcDescripcion'] . "</td>
                             <td title='Puesto'>" . $ListadoEmpleados[$i]['cDescripcion'] . "</td>
                             <td title='Estado del Contrato'>" . $ListadoEmpleados[$i]['ecEstado'] . "</td>
                             <td title='Obra social'>" . $ListadoEmpleados[$i]['obrasocial'] . "</td>
-                            <td title='Información bancaria'> Banco:" . $ListadoEmpleados[$i]['banco'] . "<br>CBU: " . $ListadoEmpleados[$i]['cbu'] . "</td>
+                            <td title='Información bancaria'> <b>Banco:</b> " . $ListadoEmpleados[$i]['banco'] . "<br><br> <b>CBU:</b> " . $ListadoEmpleados[$i]['cbu'] . "</td>
                             <td title='Fecha de ingreso a la compañía'>" . $ListadoEmpleados[$i]['fechaingreso'] . "</td>
-                            <td title='Contacto'> Correo: " . $ListadoEmpleados[$i]['mail'] . "<br>Tel: " . $ListadoEmpleados[$i]['telefono'] . "</td>
-                            <td title='Residencia'> Dirección: " . $ListadoEmpleados[$i]['direccion'] . "<br>Localidad: " . $ListadoEmpleados[$i]['localidad'] . "</td>
+                            <td title='Contacto'> <b>Correo:</b> " . $ListadoEmpleados[$i]['mail'] . "<br><br> <b>Tel:</b> " . $ListadoEmpleados[$i]['telefono'] . "</td>
+                            <td title='Residencia'> <b>Dirección:</b> " . $ListadoEmpleados[$i]['direccion'] . "<br><br> <b>Localidad:</b> " . $ListadoEmpleados[$i]['localidad'] . "</td>
                         </tr>";
                         $contador++;
                     }
