@@ -10,7 +10,7 @@
     .sidebar-logo .navbar-brand {
         color: rgb(198, 167, 31) !important;
         font-size: 26px;
-        font-family: "Cambria Math", sans-serif;
+        font-family: 'Cinzel', serif;
         margin-top: 18px;
     }
 

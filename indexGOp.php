@@ -28,37 +28,128 @@ include('head.php');
              $tituloPagina = "INICIO";
             include('topNavBar.php');  
             ?>
-            
+
+
             <div class="container">
-                <div class="page-inner">
-                    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
-                        
-                        
-                    </div>
-                    <div class="row">
-                        <div class=""> 
-                            <a href="#">
-                            <div class="card card-stats card-round">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <h5 style="color:rgb(11, 49, 83); padding-bottom: 20px;"><b>Esta página está en construcción</b></h5>
-                                        <div class="col-icon">
-                                            <div class="icon-big text-center icon-primary bubble-shadow-small">
-                                                <i class="fas fa-exclamation-triangle"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col col-stats ms-3 ms-sm-0">
-                                            <div class="numbers">
-                                                <p class="card-category" style="padding-bottom: 20px; color:rgb(70, 67, 67);">
-                                                    Ingresa a los diferentes módulos usando el menú lateral
-                                                </p>
-                                            </div>
-                                        </div>
+
+                <!-- Estilo para el mensaje de bienvenida -->
+                <style>
+                    .text-title {
+                        color: #4D311D !important; 
+                        font-family: 'Cambria Math', serif;
+                    }
+                    .text-subtitle {
+                        color:rgb(53, 21, 11) !important; 
+                        font-family: 'Raleway', sans-serif;
+                    }
+
+                    .lead {
+                        font-size: 1.3rem;
+                        font-weight: 400;
+                    }
+                </style>
+
+                <div class="text-center mt-5 page-inner">
+                    <h1 class="display-4 fw-bold text-title">Bienvenido a PeluqPro</h1> <br>
+                    <p class="lead text-muted text-subtitle">
+                        Optimizá la gestión de tu peluquería con herramientas inteligentes para administrar empleados, clientes y turnos 
+                        de manera eficiente. Usá los accesos rápidos a cada módulo y mejora la gestión de tu negocio.
+                    </p>
+                    <hr class="my-4">
+                </div>
+
+                
+                <!-- Estilo para las tarjetas -->
+                <style>
+                    .card-flip {
+                        perspective: 1000px;
+                        text-decoration: none;
+                    }
+
+                    .card {
+                        width: 100%;
+                        height: 250px;
+                        position: relative;
+                        transform-style: preserve-3d;
+                        transition: transform 0.5s ease;
+                    }
+
+                    .card-front, .card-back {
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        backface-visibility: hidden;
+                    }
+
+                    .card-front img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        border-radius: 10px;
+                    }
+
+                    .card-back {
+                        background: rgba(77, 49, 29, 0.91);
+                        color: white;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: 10px;
+                        transform: rotateY(180deg);
+                    }
+
+                    .card-flip:hover .card {
+                        transform: rotateY(180deg);
+                    }
+
+                    .card-back h3 {
+                        font-family: 'Montserrat', sans-serif; 
+                    }
+                </style>
+
+                <div class="container">
+                    <div class="row justify-content-center page-inner">
+                        <!-- Tarjeta EMPLEADOS -->
+                        <div class="col-md-4">
+                            <a href="empleados.php" class="card-flip">
+                                <div class="card">
+                                    <div class="card-front">
+                                        <img src="assets/img/empleados.png" class="img-fluid" alt="Empleados">
+                                    </div>
+                                    <div class="card-back">
+                                        <h3>Empleados</h3>
                                     </div>
                                 </div>
-                            </div> 
                             </a>
-                        </div> 
+                        </div>
+
+                        <!-- Tarjeta CLIENTES -->
+                        <div class="col-md-4">
+                            <a href="clientes.php" class="card-flip">
+                                <div class="card">
+                                    <div class="card-front">
+                                        <img src="assets/img/clientes.png" class="img-fluid" alt="Clientes">
+                                    </div>
+                                    <div class="card-back">
+                                        <h3>Clientes</h3>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Tarjeta TURNOS -->
+                        <div class="col-md-4">
+                            <a href="turnos.php" class="card-flip">
+                                <div class="card">
+                                    <div class="card-front">
+                                        <img src="assets/img/turnos.png" class="img-fluid" alt="Turnos">
+                                    </div>
+                                    <div class="card-back">
+                                        <h3>Turnos</h3>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
