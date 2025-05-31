@@ -536,7 +536,7 @@ include('head.php');
                                     CUIL
                                 </label>
                                 <input type="number" step="1"
-                                        title="Solo se admiten cuil con 7 a 12 dígitos"
+                                        title="Solo se admite CUIL con 7 a 12 dígitos"
                                         class="form-control" id="cuil-modal" name="Cuil" required>
                             </div>
 
@@ -766,13 +766,13 @@ include('head.php');
         });
 
         // Función para redirigir a modificar-empleado.php con el ID del cliente seleccionado
-        /*
+        
         function modificarEmpleado() {
             if (empleadoSeleccionado) {
                 window.location.href = 'modificar-empleado.php?id=' + empleadoSeleccionado;
             }
         }
-        */
+        
 
         // Función para redirigir a eliminar-empleado.php con el ID del cliente seleccionado
         function eliminarEmpleado() {
