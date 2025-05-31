@@ -67,7 +67,7 @@ include('head.php');
         }
         ?>
 
-        <!-- Algunos efectos moderno para el form de consultas ;) -->
+        <!-- Algunos efectos modernos para el form de consultas ;) -->
         <style>
 
             @keyframes fadeInUp {
