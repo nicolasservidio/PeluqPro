@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2025 at 12:22 PM
+-- Generation Time: May 31, 2025 at 09:15 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -124,7 +124,7 @@ CREATE TABLE `empleados` (
 
 INSERT INTO `empleados` (`id`, `nombreEmpleado`, `apellidoEmpleado`, `cuilEmpleado`, `fechaNacimiento`, `estadoCivil`, `fechaIngreso`, `idTipoContrato`, `idCargo`, `idEstadoContrato`, `obrasocial`, `banco`, `cbu`, `mailEmpleado`, `telEmpleado`, `direccionEmpleado`, `localidadEmpleado`, `bajaEmpleado`) VALUES
 (1, 'Mariano', 'Zaballa', '882829020', '1982-02-12', 'Casado', '2002-02-12', 1, 9, 1, 'Ninguna', 'Ninguno', 'Ninguno', 'zaballam@gmail.com', 2147483647, '392 Zapiola', 'Córdoba', 'N'),
-(2, 'Juan', 'Perez', '20123456789', '1990-12-04', 'Soltero', '2021-02-01', 2, 5, 1, 'OSDE', 'Santander', '1234567890123456789012', 'juan.perez@email.com', 1122334455, 'Av. Corrientes 1234', 'Córdoba', 'N'),
+(2, 'Juan', 'Perez', '20123456789', '1990-12-04', 'Soltero', '2021-02-01', 1, 17, 1, 'OSDE', 'Santander', '1234567890123456789012', 'juan.perez@email.com', 1122334455, 'Av. Corrientes 1234', 'Córdoba', 'N'),
 (3, 'María', 'María', '27234567890', '1988-02-25', 'Casada', '2019-03-15', 2, 18, 4, 'Swiss Medical', 'BBVA', '2345678901234567890123', 'maria.gomez@email.com', 1133445566, 'Av. Rivadavia 4567', 'Córdoba', 'N'),
 (4, 'Carlos', 'Rodríguez', '23111223344', '1985-08-10', 'Divorciado', '2015-01-06', 1, 8, 3, 'Medife', 'Galicia', '3456789012345678901234', 'carlos.rodriguez@email.com', 1144556677, 'San Martín 789', 'Córdoba', 'N'),
 (5, 'Laura', 'Fernández', '30123456789', '1995-01-30', 'Soltera', '2023-09-10', 3, 4, 9, 'OSDE', 'Santander', '4567890123456789012345', 'laura.fernandez@email.com', 1155667788, 'Mitre 2345', 'Córdoba', 'N'),
@@ -133,7 +133,7 @@ INSERT INTO `empleados` (`id`, `nombreEmpleado`, `apellidoEmpleado`, `cuilEmplea
 (8, 'Mateo', 'Bianchi', '34123456789', '1992-12-04', 'Viudo', '2020-10-02', 1, 6, 10, 'OSDE', 'Santander', '7890123456789012345678', 'matteo.bianchi@email.com', 1199887766, 'Av. Alem 567', 'Córdoba', 'N'),
 (9, 'Romina', 'Romano', '35112233445', '1987-06-22', 'Soltera', '2015-08-06', 2, 15, 7, 'Swiss Medical', 'BBVA', '8901234567890123456789', 'romano@yahoo.com', 1177665544, 'Calle San José 234', 'Córdoba', 'N'),
 (10, 'Luciano', 'Moretti', '36113344556', '1989-10-12', 'Soltero', '2022-05-18', 3, 1, 2, 'Medife', 'Ualá', '9012345678901234567890', 'sofia.moretti@email.com', 1188223355, 'Avenida Italia 876', 'Córdoba', 'N'),
-(11, 'Luca', 'Ferrari', '37114455667', '1989-03-19', 'Divorciado', '2016-02-11', 1, 1, 1, 'Ninguna', 'Dukascopy', '1234567890123456789012', 'ferrari@hotmail.com', 1155332299, 'Calle Colón 345', 'Villa Carlos Paz', 'N'),
+(11, 'Lucas', 'Ferreira', '37114451111', '1987-04-21', 'Soltero', '2015-02-11', 1, 1, 1, 'Avalian', 'Dukascopy Bank', '1111167890123456789012', 'ferreira@hotmail.com', 1155332111, 'Calle Colón 311', 'Villa Carlos Paz', 'N'),
 (12, 'Alessia', 'De Luca', '38115566778', '1994-07-07', 'Soltera', '2020-04-15', 2, 9, 5, 'Ninguna', 'BBVA', '2345678901234567890123', 'alessia.deluca@email.com', 1166448877, 'Av. San Lorenzo 543', 'Córdoba', 'N');
 
 -- --------------------------------------------------------
@@ -183,6 +183,36 @@ INSERT INTO `tipodecontrato` (`id`, `descripcion`) VALUES
 (1, 'Permanente'),
 (2, 'Temporal'),
 (3, 'Pasantía');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `turnos`
+--
+
+CREATE TABLE `turnos` (
+  `id` int(11) NOT NULL,
+  `servicioTurno` varchar(200) DEFAULT NULL,
+  `fechaTurno` date DEFAULT NULL,
+  `horaTurno` varchar(8) DEFAULT NULL,
+  `idEmpleado` int(11) DEFAULT NULL COMMENT 'id del empleado',
+  `idCliente` int(11) DEFAULT NULL COMMENT 'id del cliente',
+  `bajaTurno` varchar(1) DEFAULT NULL COMMENT 'Para dar de baja el turno, al igual que en clientes y empleados: "N" aparece en listado, "S" no aparece'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `turnos`
+--
+
+INSERT INTO `turnos` (`id`, `servicioTurno`, `fechaTurno`, `horaTurno`, `idEmpleado`, `idCliente`, `bajaTurno`) VALUES
+(1, 'Corte de cabello', '2025-01-01', '08:10', 1, 2, 'N'),
+(2, 'Corte de cabello y coloración', '2024-12-10', '08:00', 1, 5, 'N'),
+(3, 'Alisado y tratamientos capilares', '2024-12-21', '18:30', 7, 4, 'N'),
+(4, 'Peinado y estilismo', '2024-12-10', '09:00', 8, 19, 'N'),
+(5, 'Corte de cabello, extensiones y volumen', '2024-12-10', '18:00', 12, 18, 'N'),
+(6, 'Manicure y pedicure', '2025-01-03', '19:00', 12, 5, 'N'),
+(7, 'Corte de cabello, barbería y tratamientos especiales', '2025-01-05', '09:00', 12, 19, 'N'),
+(8, 'Alisado y tratamientos capilares', '2025-02-21', '10:00', 1, 17, 'N');
 
 -- --------------------------------------------------------
 
@@ -246,6 +276,14 @@ ALTER TABLE `tipodecontrato`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `turnos`
+--
+ALTER TABLE `turnos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idCliente` (`idCliente`),
+  ADD KEY `idEmpleado` (`idEmpleado`);
+
+--
 -- Indexes for table `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -287,6 +325,12 @@ ALTER TABLE `tipodecontrato`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `turnos`
+--
+ALTER TABLE `turnos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -303,6 +347,13 @@ ALTER TABLE `empleados`
   ADD CONSTRAINT `empleados_ibfk_1` FOREIGN KEY (`idTipoContrato`) REFERENCES `tipodecontrato` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `empleados_ibfk_2` FOREIGN KEY (`idCargo`) REFERENCES `cargo` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `empleados_ibfk_3` FOREIGN KEY (`idEstadoContrato`) REFERENCES `estadocontrato` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `turnos`
+--
+ALTER TABLE `turnos`
+  ADD CONSTRAINT `turnos_ibfk_1` FOREIGN KEY (`idCliente`) REFERENCES `clientes` (`idCliente`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `turnos_ibfk_2` FOREIGN KEY (`idEmpleado`) REFERENCES `empleados` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `usuarios`
