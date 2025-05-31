@@ -151,7 +151,7 @@ include('head.php');
                     </p>
                 </div>
 
-                <div class="row">
+                <div class="row" style="padding-top: 20px;">
 
                     <div class="col-md-3">
                         <label for="empleado" class="form-label" style="color: white !important; margin-top: 5px;">
@@ -189,7 +189,7 @@ include('head.php');
                     </p>
                 </div>
 
-                <div class="row">
+                <div class="row" style="padding-top: 20px;">
 
                     <div class="col-md-2">
                         <label for="identificador" class="form-label" style="color: white !important;">ID</label>
@@ -218,7 +218,7 @@ include('head.php');
 
                 </div> 
 
-                <div class="mt-3" style="padding-top: 50px; padding-bottom: 50px;">
+                <div class="mt-3" style="padding-top: 80px; padding-bottom: 50px;">
                     <button type="submit" class="btn btn-filtrar" style="background-color: rgb(175, 33, 8); color: white; margin-right: 20px;">
                         <i class="fas fa-search"></i> Consultar
                     </button>
