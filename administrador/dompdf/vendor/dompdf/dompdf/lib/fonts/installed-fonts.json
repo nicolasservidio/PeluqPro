@@ -1,5 +1,19 @@
 {
     "summernote": {
         "normal": "summernote_normal_5f84946105ee3e17ac64990bbcce3b03"
+    },
+    "montserrat": {
+        "500": "montserrat_500_d3ec4375b56833ef071b8749f8988a95"
+    },
+    "playfair display": {
+        "bold": "playfair_display_bold_86457bce79897df81c2468b52eb6a40c"
+    },
+    "raleway": {
+        "normal": "C:\\xampp\\htdocs\\Proyectos\\PeluqPro\\administrador\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/raleway_normal_bc54d000e5dbd8710dedfacb3c55fbc6",
+        "600": "raleway_600_1ee23db0df4b5ff88a0eeec9bd0fd06a"
+    },
+    "cinzel": {
+        "normal": "C:\\xampp\\htdocs\\Proyectos\\PeluqPro\\administrador\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/cinzel_normal_4d7c8ca658ccfaba851a02c4acbfe70c",
+        "bold": "cinzel_bold_693336e029ba4e90cc71f59dfc36125b"
     }
 }
