@@ -126,8 +126,7 @@ _Agregar capturas aquí mostrando el listado de clientes, calendario de turnos, 
 
 <br>
 
-_Include license information here if applicable._  
-_Incluir información de licencia si corresponde._
+**MIT License.** Extremely permissive. Allows use, modification, distribution, and private/commercial use. Requires attribution.
 
 ---
 
