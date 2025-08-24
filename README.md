@@ -1,13 +1,11 @@
 # 💈 PeluqPro – Hair Salon Management Platform  
-
-**ES**
-💈 PeluqPro – Plataforma de gestión de Salones Capilares
-
-<br>
-
 **06/2025 · Main Functional Analyst, Developer & Architect**  
 
 <br>
+
+**Título en español**: PeluqPro – Plataforma de gestión de Salones Capilares
+
+<br><br>
 
 ## 🧾 Overview | Visión General
 
@@ -103,20 +101,20 @@ https://github.com/user-attachments/assets/6274753d-f84d-45eb-b493-16b2eabb82e8
 
 https://github.com/user-attachments/assets/18d130cf-a34e-4c9d-afcb-6699ccfbd798
 
-<br> 
+<br> <br>
 
 ### 📆 YouTube Review & Demo (Spanish) 
 
 <br>
 
-**EN**
+**EN**<br>
 Complete review including documentation in Confluence, work management in Jira, testing in Zephyr using BDD and Gherkin syntax, and system functionalities.
 
 📺 [Watch the review on YouTube](https://www.youtube.com/watch?v=5DLfTt6_gyo)
 
 <br>
 
-**ES**
+**ES**<br>
 Review completa incluyendo documentación en Confluence, gestión del trabajo en Jira, testing en Zephyr usando BDD y sintaxis Gherkin, y funcionalidades del sistema.
 
 📺 [Mirá la revisión en YouTube](https://www.youtube.com/watch?v=5DLfTt6_gyo)
