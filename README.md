@@ -103,17 +103,23 @@ https://github.com/user-attachments/assets/6274753d-f84d-45eb-b493-16b2eabb82e8
 
 https://github.com/user-attachments/assets/18d130cf-a34e-4c9d-afcb-6699ccfbd798
 
-<br>
+<br> 
 
 ### 📆 YouTube Review & Demo (Spanish) 
+
+<br>
 
 **EN**
 Complete review including documentation in Confluence, work management in Jira, testing in Zephyr using BDD and Gherkin syntax, and system functionalities.
 
+📺 [Watch the review on YouTube](https://www.youtube.com/watch?v=5DLfTt6_gyo)
+
+<br>
+
 **ES**
 Review completa incluyendo documentación en Confluence, gestión del trabajo en Jira, testing en Zephyr usando BDD y sintaxis Gherkin, y funcionalidades del sistema.
 
-<iframe width="100%" height="400" src="https://www.youtube-nocookie.com/embed/5DLfTt6_gyo?si=ZEnSkO2MAMqQMYBL" title="PeluqPro Review" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+📺 [Mirá la revisión en YouTube](https://www.youtube.com/watch?v=5DLfTt6_gyo)
 
 <br> <br>
 
