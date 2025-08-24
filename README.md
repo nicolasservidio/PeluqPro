@@ -1,7 +1,11 @@
 # 💈 PeluqPro – Hair Salon Management Platform  
 **06/2025 · Main Functional Analyst, Developer & Architect**  
 
+<br>
+
 ## 🧾 Overview | Visión General
+
+<br>
 
 **EN**  
 PeluqPro is a web-based management system for hair salons, designed to streamline client handling, appointment scheduling, and staff administration. It integrates three core modules —Employees, Clients, and Appointments— supported by secure authentication and role-based access for administrators and operators.  
@@ -9,6 +13,8 @@ PeluqPro is a web-based management system for hair salons, designed to streamlin
 The system was built with a three-layer architecture using PHP for business logic, a MySQL database for structured data operations, and responsive interfaces developed with HTML, CSS, and JavaScript. Functional-analysis documentation was authored in Confluence to guide modular development, database schema design, and UI consistency.  
 
 Developed within Agile/Scrum cycles and manually tested using Behavior-Driven Development (BDD) and Gherkin syntax, PeluqPro delivers a reliable, maintainable solution tailored to real-world salon operations.
+
+<br>
 
 **ES**  
 PeluqPro es un sistema de gestión web para peluquerías, diseñado para optimizar la administración de clientes, turnos y personal. Integra tres módulos principales (Empleados, Clientes, y Turnos) con autenticación segura y control de acceso basado en roles para administradores y operadores.  
@@ -19,7 +25,11 @@ Desarrollado bajo ciclos breves de Agile/Scrum y probado manualmente utilizando 
 
 ---
 
+<br>
+
 ## 🔑 Key Features | Funcionalidades Clave
+
+<br>
 
 - 💇 **Employee Management**  
   EN: Staff profile CRUD and role assignments  
@@ -55,7 +65,11 @@ Desarrollado bajo ciclos breves de Agile/Scrum y probado manualmente utilizando 
 
 ---
 
-## 📸 Screenshots | Capturas de Pantalla
+<br>
+
+## 📸 Demonstrations | Demostraciones
+
+<br>
 
 ### 💈 Login and Main Dashboard
 
@@ -65,7 +79,7 @@ Desarrollado bajo ciclos breves de Agile/Scrum y probado manualmente utilizando 
 
 ### 📆 Appointment Scheduling
 
-<br>
+<br> <br>
 
 In summary, PeluqPro is a simple Information System for Hair Salons with PHP and MySQL 😄
 
@@ -76,7 +90,11 @@ _Agregar capturas aquí mostrando el listado de clientes, calendario de turnos, 
 
 ---
 
+<br>
+
 ## 📚 Documentation | Documentación
+
+<br>
 
 - [Functional Analysis (Confluence)](link-to-docs)
 
@@ -88,7 +106,11 @@ _Agregar capturas aquí mostrando el listado de clientes, calendario de turnos, 
 
 ---
 
+<br>
+
 ## 🛠️ Tech Stack | Tecnologías Utilizadas
+
+<br>
 
 - **Languages**: PHP, HTML, CSS, JavaScript, SQL  
 - **Database**: MySQL  
@@ -98,14 +120,22 @@ _Agregar capturas aquí mostrando el listado de clientes, calendario de turnos, 
 
 ---
 
+<br>
+
 ## 📄 License | Licencia
+
+<br>
 
 _Include license information here if applicable._  
 _Incluir información de licencia si corresponde._
 
 ---
 
+<br>
+
 ## 🤝 Contact | Contacto
+
+<br>
 
 **Nicolás D. Servidio**  
 📧 nicolasservidio.dm@gmail.com  
