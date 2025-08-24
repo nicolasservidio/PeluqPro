@@ -128,6 +128,8 @@ _Agregar capturas aquí mostrando el listado de clientes, calendario de turnos, 
 
 **MIT License.** Extremely permissive. Allows use, modification, distribution, and private/commercial use. Requires attribution.
 
+Copyright (c) 2025 Nicolás D. Servidio
+
 ---
 
 <br>
