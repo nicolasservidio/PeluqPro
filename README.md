@@ -35,35 +35,35 @@ Desarrollado bajo ciclos breves de Agile/Scrum y probado manualmente utilizando 
 
 <br>
 
-- 💇 **Employee Management** | Gestión de Empleados
+- 💇 **Employee Management** | Gestión de Empleados <br>
   EN: Staff profile CRUD and role assignments  
   ES: Gestión de perfiles de empleados y asignación de roles
 
-- 👥 **Client Management** | Gestión de Clientes
+- 👥 **Client Management** | Gestión de Clientes <br>
   EN: Onboarding, profile updates, deletion, and print-optimized listings  
   ES: Alta, edición, baja y listados optimizados para impresión
 
-- 📆 **Appointment Scheduling** | Gestión de Turnos
+- 📆 **Appointment Scheduling** | Gestión de Turnos <br>
   EN: Real-time booking, modification, cancellation with availability validation  
   ES: Turnos en tiempo real, modificación, cancelación y validación de disponibilidad
 
-- 🔒 **Authentication & Permissions** | Autenticación y Permisos
+- 🔒 **Authentication & Permissions** | Autenticación y Permisos <br>
   EN: Session-based login and role-based access for admins/operators  
   ES: Inicio de sesión por variable session y acceso por roles para administradores/operadores
 
-- 🖥 **Three-Layer Architecture** | Arquitectura de tres capas
+- 🖥 **Three-Layer Architecture** | Arquitectura de tres capas <br>
   EN: Presentation (frontend templates), Business Logic (PHP, entity scripts), Data Access (MySQL connector)  
   ES: Presentación (plantillas frontend), Lógica de Negocio (PHP, scripts por entidad), Acceso a Datos (conector MySQL)
 
-- 🛠 **Centralized Utilities** | Utilidades centralizadas
+- 🛠 **Centralized Utilities** | Utilidades centralizadas <br>
   EN: Input validation, sanitization, error handling in `funciones/`  
   ES: Validación de entradas, sanitización y manejo de errores en `funciones/`
 
-- 🖨️ **Print-Ready Reporting** | Reportes listos para imprimir
+- 🖨️ **Print-Ready Reporting** | Reportes listos para imprimir <br>
   EN: On-demand client listings via `impresiones/`, integrated with CRUD workflows  
   ES: Listados de clientes bajo demanda vía `impresiones/`, integrados con flujos CRUD
 
-- 🚀 **Agile Development & QA** | Desarrollo Agile & Aseguramiento de Calidad
+- 🚀 **Agile Development & QA** | Desarrollo Agile & Aseguramiento de Calidad <br>
   EN: Git version control, Scrum methodology, manual QA with BDD and Gherkin  
   ES: Control de versiones con Git, metodología Scrum, QA manual con BDD y Gherkin
 
